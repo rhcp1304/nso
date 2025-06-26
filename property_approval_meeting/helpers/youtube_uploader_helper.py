@@ -9,19 +9,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Define YouTube API scopes for uploading
-# 'https://www.googleapis.com/auth/youtube.upload' is for uploading videos
-# 'https://www.googleapis.com/auth/youtube.readonly' is for reading channel info if needed (optional)
 YOUTUBE_SCOPES = [
     'https://www.googleapis.com/auth/youtube.upload',
     'https://www.googleapis.com/auth/youtube.readonly'
 ]
 
-# File names for YouTube API credentials and token
 YOUTUBE_CREDENTIALS_FILE = 'youtube_credentials.json'
 YOUTUBE_TOKEN_FILE = 'youtube_token.pickle'
-
-# Get the directory where this script resides for relative pathing
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 YOUTUBE_CREDENTIALS_PATH = os.path.join(BASE_DIR, YOUTUBE_CREDENTIALS_FILE)
 YOUTUBE_TOKEN_PATH = os.path.join(BASE_DIR, YOUTUBE_TOKEN_FILE)
@@ -30,7 +24,6 @@ YOUTUBE_TOKEN_PATH = os.path.join(BASE_DIR, YOUTUBE_TOKEN_FILE)
 def get_youtube_service():
     """Authenticates and returns a Google YouTube Data API service object."""
     creds = None
-    # Load credentials from token file if it exists
     if os.path.exists(YOUTUBE_TOKEN_PATH):
         try:
             with open(YOUTUBE_TOKEN_PATH, 'rb') as token:
@@ -40,7 +33,6 @@ def get_youtube_service():
             logger.warning(f"Could not load YouTube API token: {e}. Will re-authenticate.")
             creds = None
 
-    # If no valid credentials, initiate OAuth2 flow
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             logger.info("YouTube API credentials expired, refreshing...")
@@ -55,14 +47,12 @@ def get_youtube_service():
             flow = InstalledAppFlow.from_client_secrets_file(YOUTUBE_CREDENTIALS_PATH, YOUTUBE_SCOPES)
             creds = flow.run_local_server(port=0)
 
-        # Save the new/refreshed credentials
         try:
             with open(YOUTUBE_TOKEN_PATH, 'wb') as token:
                 pickle.dump(creds, token)
             logger.info(f"YouTube API credentials saved to {YOUTUBE_TOKEN_PATH}.")
         except Exception as e:
             logger.error(f"Failed to save YouTube API token: {e}")
-            # Do not raise, as we still have creds in memory for current session
 
     return build('youtube', 'v3', credentials=creds)
 
@@ -85,7 +75,6 @@ def upload_video(youtube_service, file_path, title, description="", tags=None, c
         }
     }
 
-    # Use MediaFileUpload for resumable uploads
     media_body = MediaFileUpload(file_path, chunksize=-1, resumable=True)
 
     try:
