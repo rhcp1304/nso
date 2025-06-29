@@ -52,3 +52,4 @@ youtube_credentials.json # YouTube API credentials
 *.old
 *.tmp
 /merged_video.mp4
+/merged_video_timestamps.txt
