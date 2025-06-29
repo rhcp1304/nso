@@ -12,7 +12,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         service = helper.get_drive_service()
         os.makedirs(helper.DOWNLOAD_DIR, exist_ok=True)
-        SHARED_FOLDER_ID = '1S0RPt8sasFio-jI56ChEG3-rYBch0Zy7'
+        SHARED_FOLDER_ID = '1nMw_vNHZyUxKQ6TUauKFHnuvHR6uV71c'
         if SHARED_FOLDER_ID == 'YOUR_SHARED_FOLDER_ID_HERE' or not SHARED_FOLDER_ID:
             self.stdout.write(self.style.ERROR(
                 "Error: Please update 'SHARED_FOLDER_ID' in 'download_google_drive_videos.py' "
@@ -30,7 +30,7 @@ class Command(BaseCommand):
             self.stdout.write(
                 self.style.SUCCESS(f"Initiating full recursive scan and download for folder: {SHARED_FOLDER_ID}"))
 
-            video_mime_types = [m for m in helper.FILES_TO_DOWNLOAD_MIME_TYPES if m.startswith('video/')]
+            video_mime_types = [m for m in helper.FILES_TO_DOWNLOAD_MIME_TYPES]
             if not video_mime_types:
                 self.stdout.write(
                     self.style.WARNING("No video MIME types configured in helper. Skipping full video scan."))
