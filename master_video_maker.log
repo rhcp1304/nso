@@ -1,0 +1,196 @@
+2025-06-29 15:36:22,962 - INFO - --- Starting Google Drive Video Maker (Full Scan Mode) ---
+2025-06-29 15:36:22,963 - INFO - Ensured directory exists: merged_output_videos
+2025-06-29 15:36:22,963 - INFO - Ensured directory exists: temp_drive_processing
+2025-06-29 15:36:22,964 - INFO - Loaded Drive API credentials from token file.
+2025-06-29 15:36:22,967 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-29 15:36:22,969 - INFO - Performing a full scan of specified Google Drive folders.
+2025-06-29 15:36:22,969 - INFO - Scanning Google Drive folder ID: 1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 15:36:24,662 - INFO - Ensured directory exists: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 15:36:24,663 - INFO - Downloading files for Drive folder 'Chandausi_Railway Road' (ID: 1e2GWlwWaVqDVUQsp790UU017s94zRsnw) to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw'...
+2025-06-29 15:36:24,664 - INFO - Downloading 'Chandausi_Station road.pptx' (ID: 1BHA5rPs4UiD7BoxxfbIQ2eGasp7N_uAQ)...
+2025-06-29 15:36:31,356 - INFO - Download progress: 100%
+2025-06-29 15:36:31,449 - INFO - Successfully downloaded 'Chandausi_Station road.pptx' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.pptx'
+2025-06-29 15:36:31,451 - INFO - Downloading 'Chandausi_Railway Road-MV-2.mov' (ID: 1oIEhrD5F6wlcYawMIDTq2UvwgtgwNQh0)...
+2025-06-29 15:36:44,352 - INFO - Download progress: 17%
+2025-06-29 15:36:56,978 - INFO - Download progress: 34%
+2025-06-29 15:37:10,134 - INFO - Download progress: 51%
+2025-06-29 15:37:22,396 - INFO - Download progress: 68%
+2025-06-29 15:37:35,781 - INFO - Download progress: 86%
+2025-06-29 15:37:46,031 - INFO - Download progress: 100%
+2025-06-29 15:37:47,109 - INFO - Successfully downloaded 'Chandausi_Railway Road-MV-2.mov' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Railway Road-MV-2.mov'
+2025-06-29 15:37:47,172 - INFO - Downloading 'Chandausi_Railway Road_MV-1.mov' (ID: 16pXghDdn1ZxohXxStT6ZX4Ck1-OM5tvg)...
+2025-06-29 15:38:00,005 - INFO - Download progress: 15%
+2025-06-29 15:38:12,818 - INFO - Download progress: 31%
+2025-06-29 15:38:30,183 - INFO - Download progress: 47%
+2025-06-29 15:39:01,680 - INFO - Download progress: 63%
+2025-06-29 15:39:27,063 - INFO - Download progress: 78%
+2025-06-29 15:40:01,738 - INFO - Download progress: 94%
+2025-06-29 15:40:12,977 - INFO - Download progress: 100%
+2025-06-29 15:40:13,802 - INFO - Successfully downloaded 'Chandausi_Railway Road_MV-1.mov' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Railway Road_MV-1.mov'
+2025-06-29 15:40:13,860 - INFO - Downloading 'Chandausi_Railway Road_PV.mov' (ID: 16OcDj0Byfj8O2V2ga7kUYSKNVbZtw4zH)...
+2025-06-29 15:40:38,681 - INFO - Download progress: 55%
+2025-06-29 15:40:59,252 - INFO - Download progress: 100%
+2025-06-29 15:40:59,483 - INFO - Successfully downloaded 'Chandausi_Railway Road_PV.mov' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Railway Road_PV.mov'
+2025-06-29 15:40:59,496 - INFO - 
+--- Processing downloaded content from Drive folder: 'Chandausi_Railway Road' ---
+2025-06-29 15:40:59,497 - INFO - PPTX file found: 'Chandausi_Station road.pptx'. Converting to video...
+2025-06-29 15:40:59,497 - INFO - Starting PPT to Video conversion for 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.pptx'...
+2025-06-29 15:40:59,498 - INFO - Using LibreOffice portable at: C:\Users\Ankit.Anand\Downloads\LibreOfficePortable\App\libreoffice\program\soffice.exe
+2025-06-29 15:40:59,498 - INFO - Using FFmpeg portable at: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe (for final video creation)
+2025-06-29 15:40:59,499 - INFO - Created temporary directory: C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_6kgripvx
+2025-06-29 15:40:59,500 - INFO - Converting PPTX to PDF using LibreOffice...
+2025-06-29 15:40:59,500 - INFO - LibreOffice command: C:\Users\Ankit.Anand\Downloads\LibreOfficePortable\App\libreoffice\program\soffice.exe --headless --convert-to pdf --outdir C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_6kgripvx temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.pptx
+2025-06-29 15:41:16,446 - INFO - PPTX converted to PDF: C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_6kgripvx\Chandausi_Station road.pdf
+2025-06-29 15:41:16,446 - INFO - Converting PDF pages to PNG images using PyMuPDF...
+2025-06-29 15:41:22,937 - INFO - PDF conversion to 27 PNG images complete using PyMuPDF.
+2025-06-29 15:41:22,937 - INFO - Found 27 PNG images (e.g., slide_000.png) for video creation.
+2025-06-29 15:41:22,937 - INFO - Stitching images into video using FFmpeg (each slide for 5s)...
+2025-06-29 15:41:22,938 - INFO - FFmpeg video creation command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -y -framerate 0.2 -i C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_6kgripvx\slide_%03d.png -c:v libx264 -pix_fmt yuv420p -vf scale=1920x1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2 -r 30 temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.mp4
+2025-06-29 15:41:42,797 - INFO - Video created successfully: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.mp4
+2025-06-29 15:41:42,798 - INFO - Temporary directory C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_6kgripvx automatically cleaned up.
+2025-06-29 15:41:42,814 - INFO - Successfully converted PPTX to video: 'Chandausi_Station road.mp4'
+2025-06-29 15:41:42,814 - INFO - Added converted PPTX video to merge list: Chandausi_Station road.mp4
+2025-06-29 15:41:42,815 - INFO - Adding 3 existing video files to merge list.
+2025-06-29 15:41:42,815 - INFO - Merging videos for Drive folder 'Chandausi_Railway Road'...
+2025-06-29 15:44:21,968 - ERROR - Failed to merge videos for Drive folder 'Chandausi_Railway Road'. Check logs for details.
+2025-06-29 15:44:21,968 - ERROR - Failed to process and merge video for Drive folder: 'Chandausi_Railway Road'
+2025-06-29 15:44:22,054 - INFO - Cleaned up local temporary download folder: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 15:44:22,054 - INFO - 
+--- Google Drive Video Maker (Full Scan) Summary ---
+2025-06-29 15:44:22,054 - INFO - Total Drive folders identified for processing: 1
+2025-06-29 15:44:22,055 - INFO - Actual Drive folders with relevant files processed: 1
+2025-06-29 15:44:22,055 - INFO - Folders successfully processed and merged: 0
+2025-06-29 15:44:22,055 - INFO - Merged videos saved to: 'merged_output_videos'
+2025-06-29 15:44:22,055 - INFO - Check 'master_video_maker.log' for detailed output.
+2025-06-29 15:44:22,056 - INFO - --- Google Drive Video Maker (Full Scan) Finished ---
+2025-06-29 15:44:22,056 - INFO - Cleaned up empty base temporary directory: temp_drive_processing
+2025-06-29 15:47:34,022 - INFO - --- Starting Google Drive Video Maker (Full Scan Mode) ---
+2025-06-29 15:47:34,023 - INFO - Ensured directory exists: merged_output_videos
+2025-06-29 15:47:34,023 - INFO - Ensured directory exists: temp_drive_processing
+2025-06-29 15:47:34,024 - INFO - Loaded Drive API credentials from token file.
+2025-06-29 15:47:34,026 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-29 15:47:34,028 - INFO - Performing a full scan of specified Google Drive folders.
+2025-06-29 15:47:34,028 - INFO - Scanning Google Drive folder ID: 1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 15:47:35,643 - INFO - Ensured directory exists: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 15:47:35,643 - INFO - Downloading files for Drive folder 'Chandausi_Railway Road' (ID: 1e2GWlwWaVqDVUQsp790UU017s94zRsnw) to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw'...
+2025-06-29 15:47:35,644 - INFO - Downloading 'Chandausi_Station road.pptx' (ID: 1BHA5rPs4UiD7BoxxfbIQ2eGasp7N_uAQ)...
+2025-06-29 15:47:42,210 - INFO - Download progress: 100%
+2025-06-29 15:47:42,289 - INFO - Successfully downloaded 'Chandausi_Station road.pptx' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.pptx'
+2025-06-29 15:47:42,290 - INFO - Downloading 'Chandausi_Railway Road-MV-2.mov' (ID: 1oIEhrD5F6wlcYawMIDTq2UvwgtgwNQh0)...
+2025-06-29 15:48:06,209 - INFO - Download progress: 17%
+2025-06-29 15:48:28,181 - INFO - Download progress: 34%
+2025-06-29 15:48:49,714 - INFO - Download progress: 51%
+2025-06-29 15:49:09,849 - INFO - Download progress: 68%
+2025-06-29 15:49:33,401 - INFO - Download progress: 86%
+2025-06-29 15:49:53,945 - INFO - Download progress: 100%
+2025-06-29 15:49:54,487 - INFO - Successfully downloaded 'Chandausi_Railway Road-MV-2.mov' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Railway Road-MV-2.mov'
+2025-06-29 15:49:54,525 - INFO - Downloading 'Chandausi_Railway Road_MV-1.mov' (ID: 16pXghDdn1ZxohXxStT6ZX4Ck1-OM5tvg)...
+2025-06-29 15:50:18,925 - INFO - Download progress: 15%
+2025-06-29 15:50:43,646 - INFO - Download progress: 31%
+2025-06-29 15:51:08,432 - INFO - Download progress: 47%
+2025-06-29 15:51:34,443 - INFO - Download progress: 63%
+2025-06-29 15:52:00,401 - INFO - Download progress: 78%
+2025-06-29 15:52:26,743 - INFO - Download progress: 94%
+2025-06-29 15:52:36,092 - INFO - Download progress: 100%
+2025-06-29 15:52:36,816 - INFO - Successfully downloaded 'Chandausi_Railway Road_MV-1.mov' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Railway Road_MV-1.mov'
+2025-06-29 15:52:36,856 - INFO - Downloading 'Chandausi_Railway Road_PV.mov' (ID: 16OcDj0Byfj8O2V2ga7kUYSKNVbZtw4zH)...
+2025-06-29 15:52:59,770 - INFO - Download progress: 55%
+2025-06-29 15:53:13,461 - INFO - Download progress: 100%
+2025-06-29 15:53:13,632 - INFO - Successfully downloaded 'Chandausi_Railway Road_PV.mov' to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Railway Road_PV.mov'
+2025-06-29 15:53:13,649 - INFO - 
+--- Processing downloaded content from Drive folder: 'Chandausi_Railway Road' ---
+2025-06-29 15:53:13,650 - INFO - PPTX file found: 'Chandausi_Station road.pptx'. Converting to video...
+2025-06-29 15:53:13,650 - INFO - Starting PPT to Video conversion for 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.pptx'...
+2025-06-29 15:53:13,651 - INFO - Using LibreOffice portable at: C:\Users\Ankit.Anand\Downloads\LibreOfficePortable\App\libreoffice\program\soffice.exe
+2025-06-29 15:53:13,651 - INFO - Using FFmpeg portable at: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe (for final video creation)
+2025-06-29 15:53:13,652 - INFO - Created temporary directory: C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_h22j49o4
+2025-06-29 15:53:13,653 - INFO - Converting PPTX to PDF using LibreOffice...
+2025-06-29 15:53:13,653 - INFO - LibreOffice command: C:\Users\Ankit.Anand\Downloads\LibreOfficePortable\App\libreoffice\program\soffice.exe --headless --convert-to pdf --outdir C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_h22j49o4 temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.pptx
+2025-06-29 15:53:30,206 - INFO - PPTX converted to PDF: C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_h22j49o4\Chandausi_Station road.pdf
+2025-06-29 15:53:30,206 - INFO - Converting PDF pages to PNG images using PyMuPDF...
+2025-06-29 15:53:36,779 - INFO - PDF conversion to 27 PNG images complete using PyMuPDF.
+2025-06-29 15:53:36,780 - INFO - Found 27 PNG images (e.g., slide_000.png) for video creation.
+2025-06-29 15:53:36,780 - INFO - Stitching images into video using FFmpeg (each slide for 5s)...
+2025-06-29 15:53:36,780 - INFO - FFmpeg video creation command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -y -framerate 0.2 -i C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_h22j49o4\slide_%03d.png -c:v libx264 -pix_fmt yuv420p -vf scale=1920x1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2 -r 30 temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.mp4
+2025-06-29 15:53:56,733 - INFO - Video created successfully: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\Chandausi_Station road.mp4
+2025-06-29 15:53:56,733 - INFO - Temporary directory C:\Users\Ankit.Anand\PycharmProjects\nso\temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ppt_video_temp_h22j49o4 automatically cleaned up.
+2025-06-29 15:53:56,748 - INFO - Successfully converted PPTX to video: 'Chandausi_Station road.mp4'
+2025-06-29 15:53:56,749 - INFO - Added converted PPTX video to merge list: Chandausi_Station road.mp4
+2025-06-29 15:53:56,749 - INFO - Adding 3 existing video files to merge list.
+2025-06-29 15:53:56,749 - INFO - Merging videos for Drive folder 'Chandausi_Railway Road'...
+2025-06-29 15:53:56,750 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-29 15:53:56,750 - INFO - Found 4 video files to merge:
+2025-06-29 15:53:56,750 - INFO - - Chandausi_Station road.mp4
+2025-06-29 15:53:56,751 - INFO - - Chandausi_Railway Road-MV-2.mov
+2025-06-29 15:53:56,751 - INFO - - Chandausi_Railway Road_MV-1.mov
+2025-06-29 15:53:56,751 - INFO - - Chandausi_Railway Road_PV.mov
+2025-06-29 15:53:56,752 - INFO - Created temporary normalization folder: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\temp_normalized_videos
+2025-06-29 15:53:56,752 - INFO - Starting video normalization process (parallelized)...
+2025-06-29 15:53:56,752 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-29 15:53:56,753 - INFO - Using 12 worker processes for normalization.
+2025-06-29 15:53:56,753 - INFO -   Normalizing 'Chandausi_Station road.mp4'...
+2025-06-29 15:53:56,754 - INFO -   Normalizing 'Chandausi_Railway Road-MV-2.mov'...
+2025-06-29 15:53:56,754 - INFO -   Normalizing 'Chandausi_Railway Road_MV-1.mov'...
+2025-06-29 15:53:56,754 - INFO -   Normalizing 'Chandausi_Railway Road_PV.mov'...
+2025-06-29 15:55:46,370 - INFO -   Normalized to: normalized_Chandausi_Railway Road_PV.mov
+2025-06-29 15:55:51,928 - INFO -   Normalized to: normalized_Chandausi_Station road.mp4
+2025-06-29 15:58:00,931 - INFO -   Normalized to: normalized_Chandausi_Railway Road-MV-2.mov
+2025-06-29 15:58:09,809 - INFO -   Normalized to: normalized_Chandausi_Railway Road_MV-1.mov
+2025-06-29 15:58:09,810 - INFO - Creating merged video timestamp file: merged_output_videos\Chandausi_Railway Road_merged_video_timestamps.txt
+2025-06-29 15:58:09,811 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-29 15:58:09,813 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-29 15:58:09,813 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-29 15:58:09,815 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-29 15:58:09,816 - INFO - ---------------------------------------------
+2025-06-29 15:58:09,816 - INFO - Timestamp file created successfully: merged_output_videos\Chandausi_Railway Road_merged_video_timestamps.txt
+2025-06-29 15:58:09,816 - INFO - ---------------------------------------------
+2025-06-29 15:58:09,818 - INFO - Created FFmpeg concat list file: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ffmpeg_concat_list.txt
+2025-06-29 15:58:09,818 - INFO - Merging and saving final video to: merged_output_videos\Chandausi_Railway Road_merged_video.mp4
+2025-06-29 15:58:09,818 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ffmpeg_concat_list.txt -c copy -y merged_output_videos\Chandausi_Railway Road_merged_video.mp4
+2025-06-29 15:58:10,100 - ERROR - An error occurred during final video merging with FFmpeg: Command 'C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ffmpeg_concat_list.txt -c copy -y merged_output_videos\Chandausi_Railway Road_merged_video.mp4' returned non-zero exit status 1.
+2025-06-29 15:58:10,101 - ERROR - FFmpeg stdout:
+
+2025-06-29 15:58:10,101 - ERROR - FFmpeg stderr:
+ffmpeg version 6.0-full_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libaribb24 --enable-libdav1d --enable-libdavs2 --enable-libuavs3d --enable-libzvbi --enable-librav1e --enable-libsvtav1 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libaom --enable-libjxl --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-liblensfun --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-d3d11va --enable-dxva2 --enable-libmfx --enable-libshaderc --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libilbc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      58.  2.100 / 58.  2.100
+  libavcodec     60.  3.100 / 60.  3.100
+  libavformat    60.  3.100 / 60.  3.100
+  libavdevice    60.  1.100 / 60.  1.100
+  libavfilter     9.  3.100 /  9.  3.100
+  libswscale      7.  1.100 /  7.  1.100
+  libswresample   4. 10.100 /  4. 10.100
+  libpostproc    57.  1.100 / 57.  1.100
+[concat @ 0000018a5fc0eac0] Impossible to open 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\temp_drive_processing/Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw/temp_normalized_videos/normalized_Chandausi_Station road.mp4'
+temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ffmpeg_concat_list.txt: No such file or directory
+
+2025-06-29 15:58:10,101 - ERROR - 
+Troubleshooting tips for final merge:
+2025-06-29 15:58:10,102 - ERROR - 1. Ensure FFmpeg is installed and its 'bin' directory is in your system's PATH, or FFMPEG_PATH is correct.
+2025-06-29 15:58:10,102 - ERROR - 2. Check the FFmpeg stderr output above for specific error messages from FFmpeg itself.
+2025-06-29 15:58:10,102 - ERROR - 3. Verify that the normalized temporary video files are not corrupted (manually try playing them).
+2025-06-29 15:58:10,103 - INFO - Cleaned up temporary concat list file: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\ffmpeg_concat_list.txt
+2025-06-29 15:58:10,137 - INFO - Cleaned up temporary folder: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw\temp_normalized_videos
+2025-06-29 15:58:10,137 - ERROR - Failed to merge videos for Drive folder 'Chandausi_Railway Road'. Check logs for details.
+2025-06-29 15:58:10,137 - ERROR - Failed to process and merge video for Drive folder: 'Chandausi_Railway Road'
+2025-06-29 15:58:10,237 - INFO - Cleaned up local temporary download folder: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 15:58:10,237 - INFO - 
+--- Google Drive Video Maker (Full Scan) Summary ---
+2025-06-29 15:58:10,238 - INFO - Total Drive folders identified for processing: 1
+2025-06-29 15:58:10,238 - INFO - Actual Drive folders with relevant files processed: 1
+2025-06-29 15:58:10,238 - INFO - Folders successfully processed and merged: 0
+2025-06-29 15:58:10,238 - INFO - Merged videos saved to: 'merged_output_videos'
+2025-06-29 15:58:10,239 - INFO - Check 'master_video_maker.log' for detailed output.
+2025-06-29 15:58:10,239 - INFO - --- Google Drive Video Maker (Full Scan) Finished ---
+2025-06-29 15:58:10,240 - INFO - Cleaned up empty base temporary directory: temp_drive_processing
+2025-06-29 16:01:34,664 - INFO - --- Starting Google Drive Video Maker (Full Scan Mode) ---
+2025-06-29 16:01:34,665 - INFO - Ensured directory exists: merged_output_videos
+2025-06-29 16:01:34,665 - INFO - Ensured directory exists: temp_drive_processing
+2025-06-29 16:01:34,666 - INFO - Loaded Drive API credentials from token file.
+2025-06-29 16:01:34,669 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-29 16:01:34,670 - INFO - Performing a full scan of specified Google Drive folders.
+2025-06-29 16:01:34,670 - INFO - Scanning Google Drive folder ID: 1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 16:01:36,262 - INFO - Ensured directory exists: temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw
+2025-06-29 16:01:36,262 - INFO - Downloading files for Drive folder 'Chandausi_Railway Road' (ID: 1e2GWlwWaVqDVUQsp790UU017s94zRsnw) to 'temp_drive_processing\Chandausi_Railway_Road_1e2GWlwWaVqDVUQsp790UU017s94zRsnw'...
+2025-06-29 16:01:36,263 - INFO - Downloading 'Chandausi_Station road.pptx' (ID: 1BHA5rPs4UiD7BoxxfbIQ2eGasp7N_uAQ)...
