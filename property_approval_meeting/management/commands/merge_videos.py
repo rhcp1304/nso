@@ -1,11 +1,5 @@
-import os
 from django.core.management.base import BaseCommand, CommandError
-
-# Import the helper function from your video_merger_helper.py
-# Assuming video_merger_helper.py is in the project root.
-# Adjust the import path if you placed it elsewhere (e.g., 'my_app.helpers.video_merger_helper')
 from ...helpers.video_merger_helper import merge_videos_in_folder
-
 
 class Command(BaseCommand):
     help = 'Merges all video files in a specified local folder into a single video file.'

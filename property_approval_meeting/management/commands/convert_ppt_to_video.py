@@ -1,8 +1,4 @@
-# my_django_app/management/commands/convert_ppt_to_video.py
-
-import os
 from django.core.management.base import BaseCommand, CommandError
-# Import the helper function and its custom exception from your app's utils.py
 from ...helpers.convert_ppt_to_video_helper import convert_pptx_to_video, ConversionError # <-- IMPORTANT: Replace 'my_django_app' with your actual Django app name!
 
 class Command(BaseCommand):
@@ -41,7 +37,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        # Extract arguments from options
         ppt_path = options['ppt_path']
         output_video_path = options['output_video_path']
         slide_duration_seconds = options['slide_duration_seconds']
@@ -49,20 +44,17 @@ class Command(BaseCommand):
         frame_rate = options['frame_rate']
 
         try:
-            # Call the helper function from utils.py, passing all arguments and Django's stdout/style objects
             convert_pptx_to_video(
                 ppt_path=ppt_path,
                 output_video_path=output_video_path,
                 slide_duration_seconds=slide_duration_seconds,
                 resolution=resolution,
                 frame_rate=frame_rate,
-                stdout=self.stdout,  # Pass Django's stdout for consistent logging
-                style=self.style      # Pass Django's style for colored output
+                stdout=self.stdout,
+                style=self.style
             )
             self.stdout.write(self.style.SUCCESS("Overall video conversion process completed successfully."))
         except ConversionError as e:
-            # Catch the custom exception from the helper function and re-raise as a Django CommandError
             raise CommandError(f"Video conversion failed: {e}")
         except Exception as e:
-            # Catch any other unexpected errors during the command execution itself
             raise CommandError(f"An unexpected error occurred during command execution: {e}")

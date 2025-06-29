@@ -1,8 +1,6 @@
 import os
 from django.core.management.base import BaseCommand, CommandError
-
 from ...helpers import extract_video_links_from_ppt_helper as helper
-
 class Command(BaseCommand):
     help = 'Uploads a local file to a specified shared Google Drive folder.'
 
