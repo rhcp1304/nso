@@ -1,4 +1,0 @@
-File 1: normalized_0000_ppt_vid.mp4, Duration: UNKNOWN (Failed to get duration)
-File 2: normalized_Chandausi_Railway Road-MV-2.mov, Duration: UNKNOWN (Failed to get duration)
-File 3: normalized_Chandausi_Railway Road_MV-1.mov, Duration: UNKNOWN (Failed to get duration)
-File 4: normalized_Chandausi_Railway Road_PV.mov, Duration: UNKNOWN (Failed to get duration)
