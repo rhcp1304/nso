@@ -4,9 +4,11 @@ import os
 
 from googleapiclient.errors import HttpError
 
-from ...helpers import download_videos_from_google_drive_helper as gdh
+from ...helpers import download_videos_from_google_drive_helper as gdh, convert_ppt_to_video_helper as cph
 logger = logging.getLogger(__name__)
 
+class ConversionError(Exception):
+    pass
 
 class Command(BaseCommand):
     help = 'This is a utility management command for testing purpose'
@@ -16,7 +18,7 @@ class Command(BaseCommand):
         # print("here")
         service = gdh.get_drive_service()
         os.makedirs(gdh.DOWNLOAD_DIR, exist_ok=True)
-        SHARED_FOLDER_ID = '1nMw_vNHZyUxKQ6TUauKFHnuvHR6uV71c'
+        SHARED_FOLDER_ID = '1e2GWlwWaVqDVUQsp790UU017s94zRsnw'
         gdh.is_file_in_folder_hierarchy.cache_clear()
         try:
             initial_start_page_response = service.changes().getStartPageToken(supportsAllDrives=True).execute()
@@ -30,11 +32,9 @@ class Command(BaseCommand):
                     self.style.WARNING("No video MIME types configured in helper. Skipping full video scan."))
                 gdh.save_last_change_token(new_token_for_next_run)
                 return
-
             folders_to_scan = [SHARED_FOLDER_ID]
             scanned_folders = set()
             downloaded_count_initial = 0
-
             while folders_to_scan:
                 current_folder_id = folders_to_scan.pop(0)
                 if current_folder_id in scanned_folders:
@@ -71,7 +71,6 @@ class Command(BaseCommand):
                                     f"  Found existing video: '{item_name}' (ID: {item_id}, Type: {item_mime_type}). Downloading...")
                                 gdh.download_file(service, item_id, item_name, gdh.DOWNLOAD_DIR, item_mime_type)
                                 downloaded_count_initial += 1
-
                         temp_page_token = folder_contents_response.get('nextPageToken', None)
                         if temp_page_token is None:
                             break
@@ -83,21 +82,23 @@ class Command(BaseCommand):
                         self.stdout.write(self.style.ERROR(
                             f"An unexpected error occurred during initial scan of folder {current_folder_id}: {e}"))
                         break
-
             self.stdout.write(self.style.SUCCESS(
                 f"Full recursive scan complete. Downloaded {downloaded_count_initial} existing videos."))
-
             gdh.save_last_change_token(new_token_for_next_run)
             self.stdout.write(self.style.SUCCESS(
                 f"Updated last change token to: {new_token_for_next_run} (for potential future incremental runs)."))
-
-            return
-
-        except helper.HttpError as error:
+        except gdh.HttpError as error:
             self.stdout.write(self.style.ERROR(f"An API error occurred during full scan setup: {error}"))
-            return
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"An unexpected error occurred during full scan setup: {e}"))
-            return
 
+        ppt_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\BD_Presentation_Luxmi_enterprises_adj_redtape_showroom.pptx"
+        output_video_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\sample.mp4"
 
+        cph.convert_pptx_to_video(
+            ppt_path=ppt_path,
+            output_video_path=output_video_path,
+            stdout=self.stdout,
+            style=self.style
+        )
+        self.stdout.write(self.style.SUCCESS("Overall video conversion process completed successfully."))

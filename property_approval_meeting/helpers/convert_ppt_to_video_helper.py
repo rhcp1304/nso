@@ -1,15 +1,8 @@
-# my_django_app/utils.py
-
 import os
 import subprocess
-import shutil
-import platform
-import re
 import tempfile
-import fitz # PyMuPDF (PyMuPDF needs to be installed: pip install pymupdf)
+import fitz
 
-# --- Configuration for Portable LibreOffice and FFmpeg ---
-# IMPORTANT: You MUST update these paths to match the exact locations on YOUR system.
 PORTABLE_SOFFICE_PATH = r"C:\Users\Ankit.Anand\Downloads\LibreOfficePortable\App\libreoffice\program\soffice.exe"
 PORTABLE_FFMPEG_PATH = r"C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe"
 
@@ -17,7 +10,6 @@ SOFFICE_EXEC = PORTABLE_SOFFICE_PATH if os.path.exists(PORTABLE_SOFFICE_PATH) el
 FFMPEG_EXEC = PORTABLE_FFMPEG_PATH if os.path.exists(PORTABLE_FFMPEG_PATH) else "ffmpeg"
 
 class ConversionError(Exception):
-    """Custom exception for conversion failures within the utility function."""
     pass
 
 def convert_pptx_to_video(
@@ -26,37 +18,15 @@ def convert_pptx_to_video(
     slide_duration_seconds: int = 5,
     resolution: str = '1920x1080',
     frame_rate: int = 30,
-    stdout=None,  # Passed from Django Command for logging
-    style=None    # Passed from Django Command for colored output
+    stdout=None,
+    style=None
 ):
-    """
-    Core logic to convert a PowerPoint presentation (.pptx) to a video file (.mp4)
-    using portable LibreOffice, PyMuPDF, and FFmpeg.
 
-    Args:
-        ppt_path (str): Full path to the input PowerPoint presentation file (.pptx).
-        output_video_path (str): Full path for the output video file (.mp4).
-        slide_duration_seconds (int): Duration (in seconds) each slide will be displayed.
-        resolution (str): Resolution of the output video (e.g., "1920x1080").
-        frame_rate (int): Frame rate of the output video (frames per second).
-        stdout (django.core.management.base.OutputWrapper, optional): Django command's stdout.
-        style (django.core.management.base.OutputFormatter, optional): Django command's style.
-
-    Raises:
-        ConversionError: If any step of the conversion fails due to missing files,
-                         command errors, or unexpected issues.
-    """
-
-    # --- FIX HERE: Ensure _stdout always has a .write() method ---
     class _DummyStdout:
         def write(self, msg, ending='\n'):
             print(msg, end=ending)
     _stdout = stdout if stdout is not None else _DummyStdout()
-
     _style = style if style is not None else type('DummyStyle', (object,), {'SUCCESS': lambda x:x, 'WARNING': lambda x:x, 'ERROR': lambda x:x})()
-
-
-    # --- All uses of _stdout must now use .write() ---
     _stdout.write(f"Starting PPT to Video conversion for '{ppt_path}'...")
     _stdout.write(f"Using LibreOffice portable at: {SOFFICE_EXEC}")
     _stdout.write(f"Using FFmpeg portable at: {FFMPEG_EXEC} (for final video creation)")
@@ -74,8 +44,6 @@ def convert_pptx_to_video(
         with tempfile.TemporaryDirectory(dir=os.path.dirname(output_video_path),
                                          prefix="ppt_video_temp_") as temp_dir:
             _stdout.write(f"Created temporary directory: {temp_dir}")
-
-            # --- Step 1: Convert PPTX to PDF using LibreOffice ---
             _stdout.write("Converting PPTX to PDF using LibreOffice...")
             ppt_base_name = os.path.splitext(os.path.basename(ppt_path))[0]
             output_pdf_path = os.path.join(temp_dir, f"{ppt_base_name}.pdf")
@@ -91,6 +59,8 @@ def convert_pptx_to_video(
             try:
                 _stdout.write(f"LibreOffice command: {' '.join(libreoffice_pdf_command)}")
                 subprocess.run(libreoffice_pdf_command, check=True, capture_output=True, text=True, timeout=600)
+                print("-------------------------------")
+                print(output_video_path)
                 _stdout.write(_style.SUCCESS(f"PPTX converted to PDF: {output_pdf_path}"))
                 if not os.path.exists(output_pdf_path):
                     generated_files = [f for f in os.listdir(temp_dir) if f.lower().endswith('.pdf')]
@@ -113,7 +83,6 @@ def convert_pptx_to_video(
             except Exception as e:
                 raise ConversionError(f"An unexpected error occurred during LibreOffice PDF processing: {e}")
 
-            # --- Step 2: Convert PDF to PNG images using PyMuPDF ---
             _stdout.write("Converting PDF pages to PNG images using PyMuPDF...")
             generated_pngs = []
             try:
@@ -141,8 +110,6 @@ def convert_pptx_to_video(
                 raise ConversionError(f"Error: PyMuPDF did not generate any PNG images from the PDF in '{temp_dir}'.")
             _stdout.write(
                 f"Found {len(generated_pngs)} PNG images (e.g., {os.path.basename(generated_pngs[0])}) for video creation.")
-
-            # --- Step 3: Stitch PNG images into video using FFmpeg ---
             _stdout.write(
                 f"Stitching images into video using FFmpeg (each slide for {slide_duration_seconds}s)...")
             input_video_image_pattern = os.path.join(temp_dir, "slide_%03d.png")
@@ -182,8 +149,6 @@ def convert_pptx_to_video(
             _stdout.write(f"Temporary directory {temp_dir} automatically cleaned up.")
 
     except ConversionError as e:
-        # Re-raise custom exceptions directly
         raise e
     except Exception as e:
-        # Catch any other unexpected errors and wrap them
         raise ConversionError(f"An overall unexpected error occurred during the conversion process: {e}")
