@@ -5,42 +5,31 @@ import shutil
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# --- Configuration for FFmpeg (MAKE SURE THESE PATHS ARE CORRECT) ---
-# FFMPEG_PATH = "ffmpeg" # Use "ffmpeg" if it's in your system's PATH
-FFMPEG_PATH = r"C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe"  # Example for Windows portable
-
-# FFmpeg normalization settings
-# Use a common video codec (libx264) and audio codec (aac)
-# Adjust crf and preset for quality vs. speed. Lower CRF = higher quality, larger file.
-# Higher preset (e.g., ultrafast) = faster encoding, larger file/lower quality.
+FFMPEG_PATH = r"C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe"
 FFMPEG_NORMALIZATION_COMMAND_TEMPLATE = [
     FFMPEG_PATH, '-i', '{input_path}',
     '-c:v', 'libx264',
-    '-preset', 'veryfast',  # Faster encoding, good for normalization. Use 'medium' for better quality.
-    '-crf', '28',  # Constant Rate Factor: 0-51 (0 is lossless, ~23 is default, higher means more compression)
+    '-preset', 'veryfast',
+    '-crf', '28',
     '-c:a', 'aac',
-    '-b:a', '128k',  # Audio bitrate
+    '-b:a', '128k',
     '-vf', 'scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,format=yuv420p',
-    # Ensure all videos have same resolution (1920x1080) and pixel format
     '-y', '{output_path}'
 ]
 
-# Logging setup for this module
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
-                        logging.FileHandler("master_video_maker.log"),  # Still log to the main log
+                        logging.FileHandler("master_video_maker.log"),
                         logging.StreamHandler()
                     ])
 logger = logging.getLogger(__name__)
 
 
 def get_video_duration(video_path):
-    """Gets video duration using ffprobe."""
     try:
-        # Construct the ffprobe command
         ffprobe_command = [
-            FFMPEG_PATH.replace('ffmpeg', 'ffprobe'),  # Assumes ffprobe is in the same directory as ffmpeg
+            FFMPEG_PATH.replace('ffmpeg', 'ffprobe'),
             '-v', 'error',
             '-show_entries', 'format=duration',
             '-of', 'default=noprint_wrappers=1:nokey=1',
@@ -61,12 +50,11 @@ def get_video_duration(video_path):
 
 
 def normalize_video(input_path, output_path):
-    """Normalizes video to a consistent format and resolution using FFmpeg."""
     command = [arg.format(input_path=input_path, output_path=output_path) for arg in
                FFMPEG_NORMALIZATION_COMMAND_TEMPLATE]
     try:
         logger.info(f"  Normalizing '{os.path.basename(input_path)}'...")
-        result = subprocess.run(command, capture_output=True, text=True, check=False)  # check=False to get stderr
+        result = subprocess.run(command, capture_output=True, text=True, check=False)
         if result.returncode != 0:
             logger.error(
                 f"FFmpeg normalization failed for {os.path.basename(input_path)} with exit code {result.returncode}.")
@@ -87,12 +75,7 @@ def normalize_video(input_path, output_path):
 
 
 def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
-    """
-    Normalizes and merges all video files (including the converted PPTX video) in a given folder.
-    The order of merging is alphabetically, with the converted PPTX video first if present.
-    """
-    logger.info(f"Previous 'unmerged_videos_log.txt' cleared.")  # This log is from Django, keep for now
-
+    logger.info(f"Previous 'unmerged_videos_log.txt' cleared.")
     video_files = []
     for item in os.listdir(input_folder):
         item_path = os.path.join(input_folder, item)
@@ -103,35 +86,29 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
         logger.warning(f"No video files found in '{input_folder}' to merge.")
         return False
 
-    # Sort videos to ensure consistent merge order.
-    # Put the PPTX-converted video first if it exists.
-    # Assuming the converted PPTX video will be named like 'original_pptx_name.mp4'
     pptx_video_path = None
     for video in video_files:
         if "station road.mp4" in os.path.basename(video).lower() and "chandausi" in os.path.basename(
-                video).lower():  # More specific check
+                video).lower():
             pptx_video_path = video
             break
 
     if pptx_video_path and pptx_video_path in video_files:
         video_files.remove(pptx_video_path)
-        video_files.sort()  # Sort remaining videos
-        video_files.insert(0, pptx_video_path)  # Insert PPTX video at the beginning
+        video_files.sort()
+        video_files.insert(0, pptx_video_path)
     else:
-        video_files.sort()  # If no PPTX or not found, just sort all existing videos
+        video_files.sort()
 
     logger.info(f"Found {len(video_files)} video files to merge:")
     for v_file in video_files:
         logger.info(f"- {os.path.basename(v_file)}")
 
-    # Create a temporary directory for normalized videos
     temp_normalized_dir = os.path.join(input_folder, "temp_normalized_videos")
     os.makedirs(temp_normalized_dir, exist_ok=True)
     logger.info(f"Created temporary normalization folder: {temp_normalized_dir}")
-
-    # Normalize videos in parallel
     normalized_paths = []
-    max_workers = os.cpu_count() or 4  # Use number of CPU cores as workers
+    max_workers = os.cpu_count() or 4
     logger.info(f"Starting video normalization process (parallelized)...")
     logger.info(
         f"Using FFmpeg Preset: '{FFMPEG_NORMALIZATION_COMMAND_TEMPLATE[4]}' and CRF: {FFMPEG_NORMALIZATION_COMMAND_TEMPLATE[6]} for faster encoding.")
@@ -148,13 +125,10 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
 
     if len(normalized_paths) != len(video_files):
         logger.error("Not all videos were successfully normalized. Cannot proceed with merging.")
-        shutil.rmtree(temp_normalized_dir)  # Clean up partial normalizations
+        shutil.rmtree(temp_normalized_dir)
         return False
 
-    # Ensure the order of normalized videos matches the original intended order
-    # (PPTX first, then others sorted)
     final_merge_order_paths = []
-    # Re-create the list in the correct order using the normalized paths
     for original_video_path in video_files:
         normalized_name = f"normalized_{os.path.basename(original_video_path)}"
         found_normalized = False
@@ -169,7 +143,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
             shutil.rmtree(temp_normalized_dir)
             return False
 
-    # Generate a timestamp file (optional but good for tracking merge operations)
     timestamp_filename = os.path.join(os.path.dirname(output_filename),
                                       f"{os.path.splitext(os.path.basename(output_filename))[0]}_timestamps.txt")
 
@@ -192,32 +165,24 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
     except Exception as e:
         logger.warning(f"Failed to create timestamp file: {e}")
 
-    # Create a temporary concat list file for FFmpeg
     concat_list_path = os.path.join(input_folder, "ffmpeg_concat_list.txt")
     try:
         with open(concat_list_path, "w") as f:
             for video_path in final_merge_order_paths:
-                # CRITICAL FIX: Ensure the path written is the correct, absolute path,
-                # or correctly relative to where FFmpeg is run IF FFmpeg is run with cwd=input_folder
-                # For robustness, using absolute paths in the concat list is best.
-                f.write(f"file '{video_path.replace(os.sep, '/')}'\n")  # Use forward slashes for FFmpeg compatibility
+                f.write(f"file '{video_path.replace(os.sep, '/')}'\n")
         logger.info(f"Created FFmpeg concat list file: {concat_list_path}")
     except Exception as e:
         logger.error(f"Failed to create FFmpeg concat list file: {e}")
         shutil.rmtree(temp_normalized_dir)
         return False
 
-    # Construct FFmpeg merge command using the concat demuxer
-    # Use -safe 0 for potentially unsafe characters in file paths (like spaces)
-    # Use -c copy for speed IF all streams are compatible (same codec, resolution, etc.)
-    # Since we normalize, -c copy should be fine.
     ffmpeg_command = [
         FFMPEG_PATH,
         '-f', 'concat',
-        '-safe', '0',  # Allows absolute paths and paths with spaces
+        '-safe', '0',
         '-i', concat_list_path,
         '-c', 'copy',
-        '-y',  # Overwrite output file if it exists
+        '-y',
         output_filename
     ]
 
@@ -225,16 +190,14 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
     logger.info(f"Executing FFmpeg command: {' '.join(ffmpeg_command)}")
 
     try:
-        # Use subprocess.run to execute the command and capture output
         result = subprocess.run(ffmpeg_command, capture_output=True, text=True,
-                                check=False)  # check=False to inspect return code
+                                check=False)
 
         if result.returncode != 0:
             logger.error(
                 f"An error occurred during final video merging with FFmpeg: Command '{' '.join(ffmpeg_command)}' returned non-zero exit status {result.returncode}.")
             logger.error(f"FFmpeg stdout:\n{result.stdout}")
             logger.error(f"FFmpeg stderr:\n{result.stderr}")
-            # Log the troubleshooting tips explicitly
             logger.error("\nTroubleshooting tips for final merge:")
             logger.error(
                 "1. Ensure FFmpeg is installed and its 'bin' directory is in your system's PATH, or FFMPEG_PATH is correct.")
@@ -254,7 +217,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
         logger.error(f"An unexpected error occurred during final FFmpeg execution: {e}", exc_info=True)
         merge_success = False
     finally:
-        # Clean up temporary files
         if os.path.exists(concat_list_path):
             os.remove(concat_list_path)
             logger.info(f"Cleaned up temporary concat list file: {concat_list_path}")
@@ -265,7 +227,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
     return merge_success
 
 
-# Dummy Style and Stdout for helper functions if running outside Django context
 class _DummyStyle:
     def SUCCESS(self, msg): return msg
 
@@ -280,38 +241,3 @@ _style = _DummyStyle()
 class _DummyStdout:
     def write(self, msg, ending='\n'):
         logger.info(msg.strip())
-
-
-# Example usage (for testing this module independently if needed)
-if __name__ == "__main__":
-    # Create a dummy folder with some video files for testing
-    test_folder = "temp_test_videos_for_merge"
-    os.makedirs(test_folder, exist_ok=True)
-
-    # Create dummy video files (replace with actual small test videos if possible)
-    # These need to be valid video files for FFmpeg to process them.
-    # You might want to copy some small MP4s or MOVs here for a real test.
-    # For a minimal test, you could create empty files, but FFmpeg would error.
-    # Example:
-    # with open(os.path.join(test_folder, "test_video1.mp4"), "w") as f: f.write("dummy")
-    # with open(os.path.join(test_folder, "test_video2.mov"), "w") as f: f.write("dummy")
-
-    # Simulate the PPTX converted video
-    # with open(os.path.join(test_folder, "chandausi_station road.mp4"), "w") as f: f.write("dummy")
-
-    # In a real test, ensure you have actual video files in test_folder
-    # For instance, download a few small sample videos and place them here.
-
-    logger.info(f"Place actual video files in '{test_folder}' to test merging.")
-    input("Press Enter to continue after placing videos...")
-
-    output_test_file = "test_merged_output.mp4"
-    if merge_videos_in_folder(test_folder, output_test_file):
-        logger.info(f"Test merge successful! Output: {output_test_file}")
-    else:
-        logger.error("Test merge failed.")
-
-    # Clean up test folder
-    # if os.path.exists(test_folder):
-    #     shutil.rmtree(test_folder)
-    #     logger.info(f"Cleaned up test folder: {test_folder}")

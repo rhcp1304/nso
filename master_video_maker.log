@@ -1,0 +1,451 @@
+2025-06-30 15:58:18,216 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 15:58:18,239 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 15:58:20,382 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 15:58:25,746 - INFO - Download progress: 100%
+2025-06-30 15:58:25,808 - INFO - Successfully downloaded 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' to 'downloaded_videos\BD_Presentation_RM_Tower,_Hassan_RM tower.pptx'
+2025-06-30 15:58:25,810 - INFO - Downloading 'Hassan_Doddi Road_Mv-2.mp4' (ID: 12-PGdt3X1k8EULm0mdqRIkjzqnHI1qwB)...
+2025-06-30 15:58:32,211 - INFO - Download progress: 100%
+2025-06-30 15:58:32,283 - INFO - Successfully downloaded 'Hassan_Doddi Road_Mv-2.mp4' to 'downloaded_videos\Hassan_Doddi Road_Mv-2.mp4'
+2025-06-30 15:58:32,288 - INFO - Downloading 'Hassan_Doddi Road_MV-1.mp4' (ID: 1XD6yuQIWrc3on8wkc0PdAhj-tAE9YBzn)...
+2025-06-30 15:58:38,833 - INFO - Download progress: 100%
+2025-06-30 15:58:38,940 - INFO - Successfully downloaded 'Hassan_Doddi Road_MV-1.mp4' to 'downloaded_videos\Hassan_Doddi Road_MV-1.mp4'
+2025-06-30 15:58:38,948 - INFO - Downloading 'Hassan_Doddi Road_Property Video.mp4' (ID: 1jh0H_sgF67P0njIDd3L0y54zhoWWrA4E)...
+2025-06-30 15:58:44,921 - INFO - Download progress: 100%
+2025-06-30 15:58:44,978 - INFO - Successfully downloaded 'Hassan_Doddi Road_Property Video.mp4' to 'downloaded_videos\Hassan_Doddi Road_Property Video.mp4'
+2025-06-30 15:59:48,336 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-30 15:59:48,338 - INFO - Found 4 video files to merge:
+2025-06-30 15:59:48,339 - INFO - - 0000_ppt_vid.mp4
+2025-06-30 15:59:48,339 - INFO - - Hassan_Doddi Road_MV-1.mp4
+2025-06-30 15:59:48,339 - INFO - - Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 15:59:48,339 - INFO - - Hassan_Doddi Road_Property Video.mp4
+2025-06-30 15:59:48,340 - INFO - Created temporary normalization folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 15:59:48,341 - INFO - Starting video normalization process (parallelized)...
+2025-06-30 15:59:48,341 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-30 15:59:48,341 - INFO - Using 12 worker processes for normalization.
+2025-06-30 15:59:48,343 - INFO -   Normalizing '0000_ppt_vid.mp4'...
+2025-06-30 15:59:48,343 - INFO -   Normalizing 'Hassan_Doddi Road_MV-1.mp4'...
+2025-06-30 15:59:48,344 - INFO -   Normalizing 'Hassan_Doddi Road_Mv-2.mp4'...
+2025-06-30 15:59:48,345 - INFO -   Normalizing 'Hassan_Doddi Road_Property Video.mp4'...
+2025-06-30 16:03:32,305 - INFO -   Normalized to: normalized_0000_ppt_vid.mp4
+2025-06-30 16:04:53,186 - INFO -   Normalized to: normalized_Hassan_Doddi Road_MV-1.mp4
+2025-06-30 16:05:07,371 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Property Video.mp4
+2025-06-30 16:05:12,225 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 16:05:12,227 - INFO - Creating merged video timestamp file: \demo\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN_timestamps.txt
+2025-06-30 16:05:12,227 - WARNING - Failed to create timestamp file: [Errno 2] No such file or directory: '\\demo\\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN_timestamps.txt'
+2025-06-30 16:05:12,229 - INFO - Created FFmpeg concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 16:05:12,230 - INFO - Merging and saving final video to: \demo\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4
+2025-06-30 16:05:12,230 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt -c copy -y \demo\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4
+2025-06-30 16:05:12,525 - ERROR - An error occurred during final video merging with FFmpeg: Command 'C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt -c copy -y \demo\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4' returned non-zero exit status 1.
+2025-06-30 16:05:12,525 - ERROR - FFmpeg stdout:
+
+2025-06-30 16:05:12,525 - ERROR - FFmpeg stderr:
+ffmpeg version 6.0-full_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libaribb24 --enable-libdav1d --enable-libdavs2 --enable-libuavs3d --enable-libzvbi --enable-librav1e --enable-libsvtav1 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libaom --enable-libjxl --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-liblensfun --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-d3d11va --enable-dxva2 --enable-libmfx --enable-libshaderc --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libilbc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      58.  2.100 / 58.  2.100
+  libavcodec     60.  3.100 / 60.  3.100
+  libavformat    60.  3.100 / 60.  3.100
+  libavdevice    60.  1.100 / 60.  1.100
+  libavfilter     9.  3.100 /  9.  3.100
+  libswscale      7.  1.100 /  7.  1.100
+  libswresample   4. 10.100 /  4. 10.100
+  libpostproc    57.  1.100 / 57.  1.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 000001f19a45f3c0] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from 'C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 129 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9], 129 kb/s, 30 fps, 30 tbr, 15360 tbn
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.3.100 libx264
+\demo\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4: No such file or directory
+
+2025-06-30 16:05:12,526 - ERROR - 
+Troubleshooting tips for final merge:
+2025-06-30 16:05:12,526 - ERROR - 1. Ensure FFmpeg is installed and its 'bin' directory is in your system's PATH, or FFMPEG_PATH is correct.
+2025-06-30 16:05:12,526 - ERROR - 2. Check the FFmpeg stderr output above for specific error messages from FFmpeg itself.
+2025-06-30 16:05:12,527 - ERROR - 3. Verify that the normalized temporary video files are not corrupted (manually try playing them).
+2025-06-30 16:05:12,527 - INFO - Cleaned up temporary concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 16:05:12,560 - INFO - Cleaned up temporary folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 16:05:12,575 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:05:12,578 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:05:14,211 - INFO - Downloading 'BD_Presentation_Machilipatnam.pptx' (ID: 1oceYic2ivuWntGJMstR9tNhCU0lv8BLd)...
+2025-06-30 16:05:18,642 - INFO - Download progress: 100%
+2025-06-30 16:05:18,704 - INFO - Successfully downloaded 'BD_Presentation_Machilipatnam.pptx' to 'downloaded_videos\BD_Presentation_Machilipatnam.pptx'
+2025-06-30 16:05:18,706 - INFO - Downloading 'Machilipatnam RHS-MV-2.mp4' (ID: 1a7fxNEHLQfmr62XXdqdzLKMSeOEv2Plw)...
+2025-06-30 16:05:26,388 - INFO - Download progress: 33%
+2025-06-30 16:05:37,270 - INFO - Download progress: 66%
+2025-06-30 16:05:44,698 - INFO - Download progress: 99%
+2025-06-30 16:05:46,108 - INFO - Download progress: 100%
+2025-06-30 16:05:46,614 - INFO - Successfully downloaded 'Machilipatnam RHS-MV-2.mp4' to 'downloaded_videos\Machilipatnam RHS-MV-2.mp4'
+2025-06-30 16:05:46,647 - INFO - Downloading 'Machilipatnam LHS-MV-1.mp4' (ID: 1hgieRUoOeuT9ATyr1Baa14a5yCpj194T)...
+2025-06-30 16:05:53,929 - INFO - Download progress: 29%
+2025-06-30 16:06:02,549 - INFO - Download progress: 58%
+2025-06-30 16:06:12,448 - INFO - Download progress: 87%
+2025-06-30 16:06:16,325 - INFO - Download progress: 100%
+2025-06-30 16:06:16,906 - INFO - Successfully downloaded 'Machilipatnam LHS-MV-1.mp4' to 'downloaded_videos\Machilipatnam LHS-MV-1.mp4'
+2025-06-30 16:06:16,937 - INFO - Downloading 'Machilipatnam_Property Video.mp4' (ID: 1Sr3D_VXD3_nGpHG845ojB9sXjz9h0-l1)...
+2025-06-30 16:08:06,507 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:08:06,510 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:08:08,294 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 16:08:11,688 - INFO - Download progress: 100%
+2025-06-30 16:08:11,769 - INFO - Successfully downloaded 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' to 'downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\BD_Presentation_RM_Tower,_Hassan_RM tower.pptx'
+2025-06-30 16:08:11,772 - INFO - Downloading 'Hassan_Doddi Road_Mv-2.mp4' (ID: 12-PGdt3X1k8EULm0mdqRIkjzqnHI1qwB)...
+2025-06-30 16:08:20,390 - INFO - Download progress: 100%
+2025-06-30 16:08:20,488 - INFO - Successfully downloaded 'Hassan_Doddi Road_Mv-2.mp4' to 'downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\Hassan_Doddi Road_Mv-2.mp4'
+2025-06-30 16:08:20,494 - INFO - Downloading 'Hassan_Doddi Road_MV-1.mp4' (ID: 1XD6yuQIWrc3on8wkc0PdAhj-tAE9YBzn)...
+2025-06-30 16:08:27,908 - INFO - Download progress: 100%
+2025-06-30 16:08:27,990 - INFO - Successfully downloaded 'Hassan_Doddi Road_MV-1.mp4' to 'downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\Hassan_Doddi Road_MV-1.mp4'
+2025-06-30 16:08:27,995 - INFO - Downloading 'Hassan_Doddi Road_Property Video.mp4' (ID: 1jh0H_sgF67P0njIDd3L0y54zhoWWrA4E)...
+2025-06-30 16:08:34,093 - INFO - Download progress: 100%
+2025-06-30 16:08:34,144 - INFO - Successfully downloaded 'Hassan_Doddi Road_Property Video.mp4' to 'downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\Hassan_Doddi Road_Property Video.mp4'
+2025-06-30 16:09:34,625 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-30 16:09:34,627 - INFO - Found 4 video files to merge:
+2025-06-30 16:09:34,627 - INFO - - BD_Presentation_RM_Tower,_Hassan_RM tower_converted.mp4
+2025-06-30 16:09:34,627 - INFO - - Hassan_Doddi Road_MV-1.mp4
+2025-06-30 16:09:34,628 - INFO - - Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 16:09:34,628 - INFO - - Hassan_Doddi Road_Property Video.mp4
+2025-06-30 16:09:34,629 - INFO - Created temporary normalization folder: downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\temp_normalized_videos
+2025-06-30 16:09:34,629 - INFO - Starting video normalization process (parallelized)...
+2025-06-30 16:09:34,629 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-30 16:09:34,630 - INFO - Using 12 worker processes for normalization.
+2025-06-30 16:09:34,631 - INFO -   Normalizing 'BD_Presentation_RM_Tower,_Hassan_RM tower_converted.mp4'...
+2025-06-30 16:09:34,631 - INFO -   Normalizing 'Hassan_Doddi Road_MV-1.mp4'...
+2025-06-30 16:09:34,632 - INFO -   Normalizing 'Hassan_Doddi Road_Mv-2.mp4'...
+2025-06-30 16:09:34,633 - INFO -   Normalizing 'Hassan_Doddi Road_Property Video.mp4'...
+2025-06-30 16:13:34,443 - INFO -   Normalized to: normalized_BD_Presentation_RM_Tower,_Hassan_RM tower_converted.mp4
+2025-06-30 16:14:33,307 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Property Video.mp4
+2025-06-30 16:14:44,973 - INFO -   Normalized to: normalized_Hassan_Doddi Road_MV-1.mp4
+2025-06-30 16:14:49,984 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 16:14:49,985 - INFO - Creating merged video timestamp file: merged_output_videos\merged_video_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN_timestamps.txt
+2025-06-30 16:14:49,988 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:14:49,990 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:14:49,993 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:14:49,996 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:14:49,997 - INFO - ---------------------------------------------
+2025-06-30 16:14:49,998 - INFO - Timestamp file created successfully: merged_output_videos\merged_video_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN_timestamps.txt
+2025-06-30 16:14:49,998 - INFO - ---------------------------------------------
+2025-06-30 16:14:50,000 - INFO - Created FFmpeg concat list file: downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\ffmpeg_concat_list.txt
+2025-06-30 16:14:50,000 - INFO - Merging and saving final video to: merged_output_videos\merged_video_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4
+2025-06-30 16:14:50,000 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\ffmpeg_concat_list.txt -c copy -y merged_output_videos\merged_video_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4
+2025-06-30 16:14:50,264 - ERROR - An error occurred during final video merging with FFmpeg: Command 'C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\ffmpeg_concat_list.txt -c copy -y merged_output_videos\merged_video_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4' returned non-zero exit status 1.
+2025-06-30 16:14:50,265 - ERROR - FFmpeg stdout:
+
+2025-06-30 16:14:50,265 - ERROR - FFmpeg stderr:
+ffmpeg version 6.0-full_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libaribb24 --enable-libdav1d --enable-libdavs2 --enable-libuavs3d --enable-libzvbi --enable-librav1e --enable-libsvtav1 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libaom --enable-libjxl --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-liblensfun --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-d3d11va --enable-dxva2 --enable-libmfx --enable-libshaderc --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libilbc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      58.  2.100 / 58.  2.100
+  libavcodec     60.  3.100 / 60.  3.100
+  libavformat    60.  3.100 / 60.  3.100
+  libavdevice    60.  1.100 / 60.  1.100
+  libavfilter     9.  3.100 /  9.  3.100
+  libswscale      7.  1.100 /  7.  1.100
+  libswresample   4. 10.100 /  4. 10.100
+  libpostproc    57.  1.100 / 57.  1.100
+[concat @ 000001cb4a9be980] Impossible to open 'downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\downloaded_videos/1knpkyLuVkpTWNf_841qU4yfik5gdwqNN/temp_normalized_videos/normalized_BD_Presentation_RM_Tower,_Hassan_RM tower_converted.mp4'
+downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\ffmpeg_concat_list.txt: No such file or directory
+
+2025-06-30 16:14:50,266 - ERROR - 
+Troubleshooting tips for final merge:
+2025-06-30 16:14:50,266 - ERROR - 1. Ensure FFmpeg is installed and its 'bin' directory is in your system's PATH, or FFMPEG_PATH is correct.
+2025-06-30 16:14:50,266 - ERROR - 2. Check the FFmpeg stderr output above for specific error messages from FFmpeg itself.
+2025-06-30 16:14:50,267 - ERROR - 3. Verify that the normalized temporary video files are not corrupted (manually try playing them).
+2025-06-30 16:14:50,268 - INFO - Cleaned up temporary concat list file: downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\ffmpeg_concat_list.txt
+2025-06-30 16:14:50,303 - INFO - Cleaned up temporary folder: downloaded_videos\1knpkyLuVkpTWNf_841qU4yfik5gdwqNN\temp_normalized_videos
+2025-06-30 16:14:50,322 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:14:50,322 - INFO - Drive API credentials expired, refreshing...
+2025-06-30 16:14:50,639 - INFO - Drive API credentials saved to C:\Users\Ankit.Anand\PycharmProjects\nso\property_approval_meeting\helpers\token.pickle.
+2025-06-30 16:14:50,644 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:14:52,330 - INFO - Downloading 'BD_Presentation_Machilipatnam.pptx' (ID: 1oceYic2ivuWntGJMstR9tNhCU0lv8BLd)...
+2025-06-30 16:15:02,953 - INFO - Download progress: 100%
+2025-06-30 16:15:03,020 - INFO - Successfully downloaded 'BD_Presentation_Machilipatnam.pptx' to 'downloaded_videos\1yPby7fgqcHjCHJd9q4fNBZjIdD4qqCtw\BD_Presentation_Machilipatnam.pptx'
+2025-06-30 16:15:03,022 - INFO - Downloading 'Machilipatnam RHS-MV-2.mp4' (ID: 1a7fxNEHLQfmr62XXdqdzLKMSeOEv2Plw)...
+2025-06-30 16:25:49,278 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:25:49,278 - INFO - Drive API credentials expired, refreshing...
+2025-06-30 16:25:49,689 - INFO - Drive API credentials saved to C:\Users\Ankit.Anand\PycharmProjects\nso\property_approval_meeting\helpers\token.pickle.
+2025-06-30 16:25:49,693 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:25:51,416 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 16:25:54,514 - INFO - Download progress: 100%
+2025-06-30 16:25:54,587 - INFO - Successfully downloaded 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' to 'downloaded_videos\BD_Presentation_RM_Tower,_Hassan_RM tower.pptx'
+2025-06-30 16:25:54,589 - INFO - Downloading 'Hassan_Doddi Road_Mv-2.mp4' (ID: 12-PGdt3X1k8EULm0mdqRIkjzqnHI1qwB)...
+2025-06-30 16:26:01,876 - INFO - Download progress: 100%
+2025-06-30 16:26:01,966 - INFO - Successfully downloaded 'Hassan_Doddi Road_Mv-2.mp4' to 'downloaded_videos\Hassan_Doddi Road_Mv-2.mp4'
+2025-06-30 16:26:01,970 - INFO - Downloading 'Hassan_Doddi Road_MV-1.mp4' (ID: 1XD6yuQIWrc3on8wkc0PdAhj-tAE9YBzn)...
+2025-06-30 16:26:10,351 - INFO - Download progress: 100%
+2025-06-30 16:26:10,422 - INFO - Successfully downloaded 'Hassan_Doddi Road_MV-1.mp4' to 'downloaded_videos\Hassan_Doddi Road_MV-1.mp4'
+2025-06-30 16:26:10,427 - INFO - Downloading 'Hassan_Doddi Road_Property Video.mp4' (ID: 1jh0H_sgF67P0njIDd3L0y54zhoWWrA4E)...
+2025-06-30 16:26:15,348 - INFO - Download progress: 100%
+2025-06-30 16:26:15,390 - INFO - Successfully downloaded 'Hassan_Doddi Road_Property Video.mp4' to 'downloaded_videos\Hassan_Doddi Road_Property Video.mp4'
+2025-06-30 16:35:12,429 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:35:12,432 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:35:14,065 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 16:35:40,076 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:35:40,082 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:35:41,679 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 16:35:44,596 - INFO - Download progress: 100%
+2025-06-30 16:35:44,659 - INFO - Successfully downloaded 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' to 'downloaded_videos\BD_Presentation_RM_Tower,_Hassan_RM tower.pptx'
+2025-06-30 16:35:44,662 - INFO - Downloading 'Hassan_Doddi Road_Mv-2.mp4' (ID: 12-PGdt3X1k8EULm0mdqRIkjzqnHI1qwB)...
+2025-06-30 16:35:53,695 - INFO - Download progress: 100%
+2025-06-30 16:35:53,815 - INFO - Successfully downloaded 'Hassan_Doddi Road_Mv-2.mp4' to 'downloaded_videos\Hassan_Doddi Road_Mv-2.mp4'
+2025-06-30 16:35:53,820 - INFO - Downloading 'Hassan_Doddi Road_MV-1.mp4' (ID: 1XD6yuQIWrc3on8wkc0PdAhj-tAE9YBzn)...
+2025-06-30 16:36:03,258 - INFO - Download progress: 100%
+2025-06-30 16:36:03,329 - INFO - Successfully downloaded 'Hassan_Doddi Road_MV-1.mp4' to 'downloaded_videos\Hassan_Doddi Road_MV-1.mp4'
+2025-06-30 16:36:03,334 - INFO - Downloading 'Hassan_Doddi Road_Property Video.mp4' (ID: 1jh0H_sgF67P0njIDd3L0y54zhoWWrA4E)...
+2025-06-30 16:36:09,141 - INFO - Download progress: 100%
+2025-06-30 16:36:09,191 - INFO - Successfully downloaded 'Hassan_Doddi Road_Property Video.mp4' to 'downloaded_videos\Hassan_Doddi Road_Property Video.mp4'
+2025-06-30 16:36:52,610 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-30 16:36:52,611 - INFO - Found 4 video files to merge:
+2025-06-30 16:36:52,611 - INFO - - 0000_ppt_vid.mp4
+2025-06-30 16:36:52,611 - INFO - - Hassan_Doddi Road_MV-1.mp4
+2025-06-30 16:36:52,612 - INFO - - Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 16:36:52,612 - INFO - - Hassan_Doddi Road_Property Video.mp4
+2025-06-30 16:36:52,613 - INFO - Created temporary normalization folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 16:36:52,613 - INFO - Starting video normalization process (parallelized)...
+2025-06-30 16:36:52,614 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-30 16:36:52,614 - INFO - Using 12 worker processes for normalization.
+2025-06-30 16:36:52,615 - INFO -   Normalizing '0000_ppt_vid.mp4'...
+2025-06-30 16:36:52,616 - INFO -   Normalizing 'Hassan_Doddi Road_MV-1.mp4'...
+2025-06-30 16:36:52,618 - INFO -   Normalizing 'Hassan_Doddi Road_Mv-2.mp4'...
+2025-06-30 16:36:52,619 - INFO -   Normalizing 'Hassan_Doddi Road_Property Video.mp4'...
+2025-06-30 16:40:27,077 - INFO -   Normalized to: normalized_0000_ppt_vid.mp4
+2025-06-30 16:40:56,974 - INFO -   Normalized to: normalized_Hassan_Doddi Road_MV-1.mp4
+2025-06-30 16:41:02,652 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Property Video.mp4
+2025-06-30 16:41:08,395 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 16:41:08,396 - INFO - Creating merged video timestamp file: merged_output_videos\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN_timestamps.txt
+2025-06-30 16:41:08,397 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:41:08,398 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:41:08,400 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:41:08,401 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 16:41:08,402 - INFO - ---------------------------------------------
+2025-06-30 16:41:08,402 - INFO - Timestamp file created successfully: merged_output_videos\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN_timestamps.txt
+2025-06-30 16:41:08,402 - INFO - ---------------------------------------------
+2025-06-30 16:41:08,403 - INFO - Created FFmpeg concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 16:41:08,403 - INFO - Merging and saving final video to: merged_output_videos\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4
+2025-06-30 16:41:08,403 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt -c copy -y merged_output_videos\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4
+2025-06-30 16:41:09,384 - INFO - Successfully merged video to: merged_output_videos\merged_sample_vid_1knpkyLuVkpTWNf_841qU4yfik5gdwqNN.mp4
+2025-06-30 16:41:09,385 - INFO - Cleaned up temporary concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 16:41:09,427 - INFO - Cleaned up temporary folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 16:41:09,447 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:41:09,450 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:41:11,238 - INFO - Downloading 'BD_Presentation_Machilipatnam.pptx' (ID: 1oceYic2ivuWntGJMstR9tNhCU0lv8BLd)...
+2025-06-30 16:41:18,697 - INFO - Download progress: 100%
+2025-06-30 16:41:18,756 - INFO - Successfully downloaded 'BD_Presentation_Machilipatnam.pptx' to 'downloaded_videos\BD_Presentation_Machilipatnam.pptx'
+2025-06-30 16:41:18,758 - INFO - Downloading 'Machilipatnam RHS-MV-2.mp4' (ID: 1a7fxNEHLQfmr62XXdqdzLKMSeOEv2Plw)...
+2025-06-30 16:41:28,056 - INFO - Download progress: 33%
+2025-06-30 16:41:35,108 - INFO - Download progress: 66%
+2025-06-30 16:48:37,827 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:48:37,831 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:48:39,875 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 16:48:46,388 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 16:48:46,393 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 16:48:48,150 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 16:48:51,489 - INFO - Download progress: 100%
+2025-06-30 16:48:51,552 - INFO - Successfully downloaded 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' to 'downloaded_videos\BD_Presentation_RM_Tower,_Hassan_RM tower.pptx'
+2025-06-30 16:48:51,554 - INFO - Downloading 'Hassan_Doddi Road_Mv-2.mp4' (ID: 12-PGdt3X1k8EULm0mdqRIkjzqnHI1qwB)...
+2025-06-30 16:48:59,618 - INFO - Download progress: 100%
+2025-06-30 16:48:59,738 - INFO - Successfully downloaded 'Hassan_Doddi Road_Mv-2.mp4' to 'downloaded_videos\Hassan_Doddi Road_Mv-2.mp4'
+2025-06-30 16:48:59,742 - INFO - Downloading 'Hassan_Doddi Road_MV-1.mp4' (ID: 1XD6yuQIWrc3on8wkc0PdAhj-tAE9YBzn)...
+2025-06-30 16:49:09,932 - INFO - Download progress: 100%
+2025-06-30 16:49:10,017 - INFO - Successfully downloaded 'Hassan_Doddi Road_MV-1.mp4' to 'downloaded_videos\Hassan_Doddi Road_MV-1.mp4'
+2025-06-30 16:49:10,022 - INFO - Downloading 'Hassan_Doddi Road_Property Video.mp4' (ID: 1jh0H_sgF67P0njIDd3L0y54zhoWWrA4E)...
+2025-06-30 16:49:16,055 - INFO - Download progress: 100%
+2025-06-30 16:49:16,105 - INFO - Successfully downloaded 'Hassan_Doddi Road_Property Video.mp4' to 'downloaded_videos\Hassan_Doddi Road_Property Video.mp4'
+2025-06-30 17:20:33,739 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 17:20:33,743 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 17:20:35,513 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 17:20:39,327 - INFO - Download progress: 100%
+2025-06-30 17:20:39,447 - INFO - Successfully downloaded 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' to 'downloaded_videos\BD_Presentation_RM_Tower,_Hassan_RM tower.pptx'
+2025-06-30 17:20:39,449 - INFO - Downloading 'Hassan_Doddi Road_Mv-2.mp4' (ID: 12-PGdt3X1k8EULm0mdqRIkjzqnHI1qwB)...
+2025-06-30 17:20:46,082 - INFO - Download progress: 100%
+2025-06-30 17:20:46,156 - INFO - Successfully downloaded 'Hassan_Doddi Road_Mv-2.mp4' to 'downloaded_videos\Hassan_Doddi Road_Mv-2.mp4'
+2025-06-30 17:20:46,161 - INFO - Downloading 'Hassan_Doddi Road_MV-1.mp4' (ID: 1XD6yuQIWrc3on8wkc0PdAhj-tAE9YBzn)...
+2025-06-30 17:20:53,538 - INFO - Download progress: 100%
+2025-06-30 17:20:53,705 - INFO - Successfully downloaded 'Hassan_Doddi Road_MV-1.mp4' to 'downloaded_videos\Hassan_Doddi Road_MV-1.mp4'
+2025-06-30 17:20:53,709 - INFO - Downloading 'Hassan_Doddi Road_Property Video.mp4' (ID: 1jh0H_sgF67P0njIDd3L0y54zhoWWrA4E)...
+2025-06-30 17:21:07,733 - INFO - Download progress: 100%
+2025-06-30 17:21:07,813 - INFO - Successfully downloaded 'Hassan_Doddi Road_Property Video.mp4' to 'downloaded_videos\Hassan_Doddi Road_Property Video.mp4'
+2025-06-30 17:22:54,598 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 17:22:54,599 - INFO - Drive API credentials expired, refreshing...
+2025-06-30 17:22:54,988 - INFO - Drive API credentials saved to C:\Users\Ankit.Anand\PycharmProjects\nso\property_approval_meeting\helpers\token.pickle.
+2025-06-30 17:22:55,005 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 17:22:58,643 - INFO - Downloading 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' (ID: 10j3nmUlAP_NP2-1NjTa_r7M1sAGjAzIX)...
+2025-06-30 17:23:02,152 - INFO - Download progress: 100%
+2025-06-30 17:23:02,379 - INFO - Successfully downloaded 'BD_Presentation_RM_Tower,_Hassan_RM tower.pptx' to 'downloaded_videos\BD_Presentation_RM_Tower,_Hassan_RM tower.pptx'
+2025-06-30 17:23:02,382 - INFO - Downloading 'Hassan_Doddi Road_Mv-2.mp4' (ID: 12-PGdt3X1k8EULm0mdqRIkjzqnHI1qwB)...
+2025-06-30 17:23:17,497 - INFO - Download progress: 100%
+2025-06-30 17:23:17,735 - INFO - Successfully downloaded 'Hassan_Doddi Road_Mv-2.mp4' to 'downloaded_videos\Hassan_Doddi Road_Mv-2.mp4'
+2025-06-30 17:23:17,747 - INFO - Downloading 'Hassan_Doddi Road_MV-1.mp4' (ID: 1XD6yuQIWrc3on8wkc0PdAhj-tAE9YBzn)...
+2025-06-30 17:23:25,072 - INFO - Download progress: 100%
+2025-06-30 17:23:25,304 - INFO - Successfully downloaded 'Hassan_Doddi Road_MV-1.mp4' to 'downloaded_videos\Hassan_Doddi Road_MV-1.mp4'
+2025-06-30 17:23:25,316 - INFO - Downloading 'Hassan_Doddi Road_Property Video.mp4' (ID: 1jh0H_sgF67P0njIDd3L0y54zhoWWrA4E)...
+2025-06-30 17:23:30,867 - INFO - Download progress: 100%
+2025-06-30 17:23:30,936 - INFO - Successfully downloaded 'Hassan_Doddi Road_Property Video.mp4' to 'downloaded_videos\Hassan_Doddi Road_Property Video.mp4'
+2025-06-30 17:25:13,812 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-30 17:25:13,814 - INFO - Found 4 video files to merge:
+2025-06-30 17:25:13,815 - INFO - - 0000_ppt_vid.mp4
+2025-06-30 17:25:13,815 - INFO - - Hassan_Doddi Road_MV-1.mp4
+2025-06-30 17:25:13,816 - INFO - - Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 17:25:13,816 - INFO - - Hassan_Doddi Road_Property Video.mp4
+2025-06-30 17:25:13,817 - INFO - Created temporary normalization folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 17:25:13,818 - INFO - Starting video normalization process (parallelized)...
+2025-06-30 17:25:13,819 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-30 17:25:13,819 - INFO - Using 12 worker processes for normalization.
+2025-06-30 17:25:13,821 - INFO -   Normalizing '0000_ppt_vid.mp4'...
+2025-06-30 17:25:13,822 - INFO -   Normalizing 'Hassan_Doddi Road_MV-1.mp4'...
+2025-06-30 17:25:13,823 - INFO -   Normalizing 'Hassan_Doddi Road_Mv-2.mp4'...
+2025-06-30 17:25:13,825 - INFO -   Normalizing 'Hassan_Doddi Road_Property Video.mp4'...
+2025-06-30 17:28:54,165 - INFO -   Normalized to: normalized_0000_ppt_vid.mp4
+2025-06-30 17:29:40,849 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Property Video.mp4
+2025-06-30 17:29:52,641 - INFO -   Normalized to: normalized_Hassan_Doddi Road_MV-1.mp4
+2025-06-30 17:29:55,691 - INFO -   Normalized to: normalized_Hassan_Doddi Road_Mv-2.mp4
+2025-06-30 17:29:55,692 - INFO - Creating merged video timestamp file: merged_output_videos\merged_sample_vid_0_timestamps.txt
+2025-06-30 17:29:55,694 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:29:55,696 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:29:55,697 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:29:55,698 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:29:55,699 - INFO - ---------------------------------------------
+2025-06-30 17:29:55,699 - INFO - Timestamp file created successfully: merged_output_videos\merged_sample_vid_0_timestamps.txt
+2025-06-30 17:29:55,699 - INFO - ---------------------------------------------
+2025-06-30 17:29:55,700 - INFO - Created FFmpeg concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 17:29:55,700 - INFO - Merging and saving final video to: merged_output_videos\merged_sample_vid_0.mp4
+2025-06-30 17:29:55,700 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt -c copy -y merged_output_videos\merged_sample_vid_0.mp4
+2025-06-30 17:29:56,750 - INFO - Successfully merged video to: merged_output_videos\merged_sample_vid_0.mp4
+2025-06-30 17:29:56,751 - INFO - Cleaned up temporary concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 17:29:56,820 - INFO - Cleaned up temporary folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 17:29:56,854 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 17:29:56,860 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 17:29:58,933 - INFO - Downloading 'BD_Presentation_Machilipatnam.pptx' (ID: 1oceYic2ivuWntGJMstR9tNhCU0lv8BLd)...
+2025-06-30 17:30:04,240 - INFO - Download progress: 100%
+2025-06-30 17:30:04,309 - INFO - Successfully downloaded 'BD_Presentation_Machilipatnam.pptx' to 'downloaded_videos\BD_Presentation_Machilipatnam.pptx'
+2025-06-30 17:30:04,311 - INFO - Downloading 'Machilipatnam RHS-MV-2.mp4' (ID: 1a7fxNEHLQfmr62XXdqdzLKMSeOEv2Plw)...
+2025-06-30 17:30:12,701 - INFO - Download progress: 33%
+2025-06-30 17:30:20,727 - INFO - Download progress: 66%
+2025-06-30 17:30:28,572 - INFO - Download progress: 99%
+2025-06-30 17:30:29,985 - INFO - Download progress: 100%
+2025-06-30 17:30:30,475 - INFO - Successfully downloaded 'Machilipatnam RHS-MV-2.mp4' to 'downloaded_videos\Machilipatnam RHS-MV-2.mp4'
+2025-06-30 17:30:30,502 - INFO - Downloading 'Machilipatnam LHS-MV-1.mp4' (ID: 1hgieRUoOeuT9ATyr1Baa14a5yCpj194T)...
+2025-06-30 17:30:37,992 - INFO - Download progress: 29%
+2025-06-30 17:30:48,266 - INFO - Download progress: 58%
+2025-06-30 17:30:57,466 - INFO - Download progress: 87%
+2025-06-30 17:31:01,616 - INFO - Download progress: 100%
+2025-06-30 17:31:01,987 - INFO - Successfully downloaded 'Machilipatnam LHS-MV-1.mp4' to 'downloaded_videos\Machilipatnam LHS-MV-1.mp4'
+2025-06-30 17:31:02,022 - INFO - Downloading 'Machilipatnam_Property Video.mp4' (ID: 1Sr3D_VXD3_nGpHG845ojB9sXjz9h0-l1)...
+2025-06-30 17:31:09,976 - INFO - Download progress: 88%
+2025-06-30 17:31:11,895 - INFO - Download progress: 100%
+2025-06-30 17:31:12,045 - INFO - Successfully downloaded 'Machilipatnam_Property Video.mp4' to 'downloaded_videos\Machilipatnam_Property Video.mp4'
+2025-06-30 17:32:00,825 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-30 17:32:00,825 - INFO - Found 4 video files to merge:
+2025-06-30 17:32:00,826 - INFO - - 0000_ppt_vid.mp4
+2025-06-30 17:32:00,826 - INFO - - Machilipatnam LHS-MV-1.mp4
+2025-06-30 17:32:00,826 - INFO - - Machilipatnam RHS-MV-2.mp4
+2025-06-30 17:32:00,826 - INFO - - Machilipatnam_Property Video.mp4
+2025-06-30 17:32:00,827 - INFO - Created temporary normalization folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 17:32:00,827 - INFO - Starting video normalization process (parallelized)...
+2025-06-30 17:32:00,827 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-30 17:32:00,827 - INFO - Using 12 worker processes for normalization.
+2025-06-30 17:32:00,828 - INFO -   Normalizing '0000_ppt_vid.mp4'...
+2025-06-30 17:32:00,829 - INFO -   Normalizing 'Machilipatnam LHS-MV-1.mp4'...
+2025-06-30 17:32:00,830 - INFO -   Normalizing 'Machilipatnam RHS-MV-2.mp4'...
+2025-06-30 17:32:00,830 - INFO -   Normalizing 'Machilipatnam_Property Video.mp4'...
+2025-06-30 17:34:19,485 - INFO -   Normalized to: normalized_0000_ppt_vid.mp4
+2025-06-30 17:35:22,472 - INFO -   Normalized to: normalized_Machilipatnam_Property Video.mp4
+2025-06-30 17:35:28,574 - INFO -   Normalized to: normalized_Machilipatnam RHS-MV-2.mp4
+2025-06-30 17:35:34,858 - INFO -   Normalized to: normalized_Machilipatnam LHS-MV-1.mp4
+2025-06-30 17:35:34,859 - INFO - Creating merged video timestamp file: merged_output_videos\merged_sample_vid_1_timestamps.txt
+2025-06-30 17:35:34,861 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:35:34,862 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:35:34,863 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:35:34,864 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:35:34,865 - INFO - ---------------------------------------------
+2025-06-30 17:35:34,865 - INFO - Timestamp file created successfully: merged_output_videos\merged_sample_vid_1_timestamps.txt
+2025-06-30 17:35:34,865 - INFO - ---------------------------------------------
+2025-06-30 17:35:34,866 - INFO - Created FFmpeg concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 17:35:34,867 - INFO - Merging and saving final video to: merged_output_videos\merged_sample_vid_1.mp4
+2025-06-30 17:35:34,867 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt -c copy -y merged_output_videos\merged_sample_vid_1.mp4
+2025-06-30 17:35:35,473 - INFO - Successfully merged video to: merged_output_videos\merged_sample_vid_1.mp4
+2025-06-30 17:35:35,473 - INFO - Cleaned up temporary concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 17:35:35,491 - INFO - Cleaned up temporary folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 17:35:35,539 - INFO - Loaded Drive API credentials from token file.
+2025-06-30 17:35:35,543 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-30 17:35:37,131 - INFO - Downloading 'BD_Presentation_The_Coorg_Centre.pptx' (ID: 1gAaDlsha1AuvZoU4Lnu-EynXjx0jq180)...
+2025-06-30 17:35:43,484 - INFO - Download progress: 100%
+2025-06-30 17:35:43,553 - INFO - Successfully downloaded 'BD_Presentation_The_Coorg_Centre.pptx' to 'downloaded_videos\BD_Presentation_The_Coorg_Centre.pptx'
+2025-06-30 17:35:43,555 - INFO - Downloading 'Madikeri_Coorg Centre_MV-2.mp4' (ID: 1eoIe1f3Xjs6xAk6p_7zF97sDMS-XAUHf)...
+2025-06-30 17:35:48,837 - INFO - Download progress: 21%
+2025-06-30 17:35:53,774 - INFO - Download progress: 42%
+2025-06-30 17:36:00,195 - INFO - Download progress: 63%
+2025-06-30 17:36:07,194 - INFO - Download progress: 84%
+2025-06-30 17:36:12,583 - INFO - Download progress: 100%
+2025-06-30 17:36:13,018 - INFO - Successfully downloaded 'Madikeri_Coorg Centre_MV-2.mp4' to 'downloaded_videos\Madikeri_Coorg Centre_MV-2.mp4'
+2025-06-30 17:36:13,056 - INFO - Downloading 'Madikeri_Coorg Centre_MV-1.mp4' (ID: 1v1SV4lrRQ4WRA9dPw95OfYMQb94U5Ha0)...
+2025-06-30 17:36:19,688 - INFO - Download progress: 21%
+2025-06-30 17:36:25,727 - INFO - Download progress: 43%
+2025-06-30 17:36:33,949 - INFO - Download progress: 65%
+2025-06-30 17:36:41,275 - INFO - Download progress: 87%
+2025-06-30 17:36:45,274 - INFO - Download progress: 100%
+2025-06-30 17:36:45,703 - INFO - Successfully downloaded 'Madikeri_Coorg Centre_MV-1.mp4' to 'downloaded_videos\Madikeri_Coorg Centre_MV-1.mp4'
+2025-06-30 17:36:45,736 - INFO - Downloading 'Madikeri_Coorg Centre_Property Video.mp4' (ID: 1FEGxA7pAR37RgN7mdpakhlRFWCfpv-Tv)...
+2025-06-30 17:36:51,550 - INFO - Download progress: 53%
+2025-06-30 17:36:58,075 - INFO - Download progress: 100%
+2025-06-30 17:36:58,241 - INFO - Successfully downloaded 'Madikeri_Coorg Centre_Property Video.mp4' to 'downloaded_videos\Madikeri_Coorg Centre_Property Video.mp4'
+2025-06-30 17:37:36,578 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-30 17:37:36,579 - INFO - Found 4 video files to merge:
+2025-06-30 17:37:36,580 - INFO - - 0000_ppt_vid.mp4
+2025-06-30 17:37:36,580 - INFO - - Madikeri_Coorg Centre_MV-1.mp4
+2025-06-30 17:37:36,580 - INFO - - Madikeri_Coorg Centre_MV-2.mp4
+2025-06-30 17:37:36,580 - INFO - - Madikeri_Coorg Centre_Property Video.mp4
+2025-06-30 17:37:36,581 - INFO - Created temporary normalization folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 17:37:36,581 - INFO - Starting video normalization process (parallelized)...
+2025-06-30 17:37:36,582 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-30 17:37:36,582 - INFO - Using 12 worker processes for normalization.
+2025-06-30 17:37:36,583 - INFO -   Normalizing '0000_ppt_vid.mp4'...
+2025-06-30 17:37:36,583 - INFO -   Normalizing 'Madikeri_Coorg Centre_MV-1.mp4'...
+2025-06-30 17:37:36,584 - INFO -   Normalizing 'Madikeri_Coorg Centre_MV-2.mp4'...
+2025-06-30 17:37:36,585 - INFO -   Normalizing 'Madikeri_Coorg Centre_Property Video.mp4'...
+2025-06-30 17:39:25,190 - INFO -   Normalized to: normalized_0000_ppt_vid.mp4
+2025-06-30 17:39:42,353 - INFO -   Normalized to: normalized_Madikeri_Coorg Centre_Property Video.mp4
+2025-06-30 17:41:33,969 - INFO -   Normalized to: normalized_Madikeri_Coorg Centre_MV-1.mp4
+2025-06-30 17:41:35,764 - INFO -   Normalized to: normalized_Madikeri_Coorg Centre_MV-2.mp4
+2025-06-30 17:41:35,765 - INFO - Creating merged video timestamp file: merged_output_videos\merged_sample_vid_2_timestamps.txt
+2025-06-30 17:41:35,767 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:41:35,769 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:41:35,770 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:41:35,771 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:41:35,772 - INFO - ---------------------------------------------
+2025-06-30 17:41:35,772 - INFO - Timestamp file created successfully: merged_output_videos\merged_sample_vid_2_timestamps.txt
+2025-06-30 17:41:35,772 - INFO - ---------------------------------------------
+2025-06-30 17:41:35,773 - INFO - Created FFmpeg concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 17:41:35,774 - INFO - Merging and saving final video to: merged_output_videos\merged_sample_vid_2.mp4
+2025-06-30 17:41:35,774 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt -c copy -y merged_output_videos\merged_sample_vid_2.mp4
+2025-06-30 17:41:36,436 - INFO - Successfully merged video to: merged_output_videos\merged_sample_vid_2.mp4
+2025-06-30 17:41:36,437 - INFO - Cleaned up temporary concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\ffmpeg_concat_list.txt
+2025-06-30 17:41:36,472 - INFO - Cleaned up temporary folder: C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\temp_normalized_videos
+2025-06-30 17:41:36,473 - INFO - Previous 'unmerged_videos_log.txt' cleared.
+2025-06-30 17:41:36,475 - INFO - Found 3 video files to merge:
+2025-06-30 17:41:36,475 - INFO - - merged_sample_vid_0.mp4
+2025-06-30 17:41:36,475 - INFO - - merged_sample_vid_1.mp4
+2025-06-30 17:41:36,475 - INFO - - merged_sample_vid_2.mp4
+2025-06-30 17:41:36,476 - INFO - Created temporary normalization folder: C:\Users\Ankit.Anand\PycharmProjects\nso\merged_output_videos\temp_normalized_videos
+2025-06-30 17:41:36,476 - INFO - Starting video normalization process (parallelized)...
+2025-06-30 17:41:36,476 - INFO - Using FFmpeg Preset: 'libx264' and CRF: veryfast for faster encoding.
+2025-06-30 17:41:36,477 - INFO - Using 12 worker processes for normalization.
+2025-06-30 17:41:36,477 - INFO -   Normalizing 'merged_sample_vid_0.mp4'...
+2025-06-30 17:41:36,478 - INFO -   Normalizing 'merged_sample_vid_1.mp4'...
+2025-06-30 17:41:36,479 - INFO -   Normalizing 'merged_sample_vid_2.mp4'...
+2025-06-30 17:50:42,248 - INFO -   Normalized to: normalized_merged_sample_vid_1.mp4
+2025-06-30 17:51:21,255 - INFO -   Normalized to: normalized_merged_sample_vid_2.mp4
+2025-06-30 17:51:42,127 - INFO -   Normalized to: normalized_merged_sample_vid_0.mp4
+2025-06-30 17:51:42,128 - INFO - Creating merged video timestamp file: final_consolidated_property_video_timestamps.txt
+2025-06-30 17:51:42,129 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:51:42,130 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:51:42,132 - ERROR - FFprobe executable not found. Make sure it's in the same directory as FFmpeg or in PATH.
+2025-06-30 17:51:42,132 - INFO - ---------------------------------------------
+2025-06-30 17:51:42,133 - INFO - Timestamp file created successfully: final_consolidated_property_video_timestamps.txt
+2025-06-30 17:51:42,133 - INFO - ---------------------------------------------
+2025-06-30 17:51:42,134 - INFO - Created FFmpeg concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\merged_output_videos\ffmpeg_concat_list.txt
+2025-06-30 17:51:42,134 - INFO - Merging and saving final video to: final_consolidated_property_video.mp4
+2025-06-30 17:51:42,135 - INFO - Executing FFmpeg command: C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i C:\Users\Ankit.Anand\PycharmProjects\nso\merged_output_videos\ffmpeg_concat_list.txt -c copy -y final_consolidated_property_video.mp4
+2025-06-30 17:51:43,536 - INFO - Successfully merged video to: final_consolidated_property_video.mp4
+2025-06-30 17:51:43,536 - INFO - Cleaned up temporary concat list file: C:\Users\Ankit.Anand\PycharmProjects\nso\merged_output_videos\ffmpeg_concat_list.txt
+2025-06-30 17:51:43,625 - INFO - Cleaned up temporary folder: C:\Users\Ankit.Anand\PycharmProjects\nso\merged_output_videos\temp_normalized_videos

@@ -21,7 +21,10 @@ class Command(BaseCommand):
                                  '16ZxMgaq_ne5u2M4j0jTj_X2mQfNf2g5J']
         folder_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos"
 
+        counter=0
+
         for SHARED_FOLDER_ID in SHARED_FOLDER_ID_LIST:
+
             shutil.rmtree(folder_path)
             service = gdh.get_drive_service()
             os.makedirs(gdh.DOWNLOAD_DIR, exist_ok=True)
@@ -101,15 +104,11 @@ class Command(BaseCommand):
 
             ppt_path = ""
             filenames = get_filenames_in_folder(folder_path)
-            print("----------------------------")
-            print(filenames)
             for f in filenames:
                 if ".pptx" in f:
                     ppt_path = f
                     break
-            print(ppt_path)
             output_video_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\0000_ppt_vid.mp4"
-
             cph.convert_pptx_to_video(
                 ppt_path=ppt_path,
                 output_video_path=output_video_path,
@@ -119,7 +118,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS("Overall video conversion process completed successfully."))
 
             input_folder = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos"
-            output_name = "merged_sample_vid_"+SHARED_FOLDER_ID+".mp4"
+            output_name = r"merged_output_videos\merged_sample_vid_"+str(counter)+".mp4"
 
             self.stdout.write(f"Starting video merge process for folder: {input_folder}")
             self.stdout.write(f"Output video will be named: {output_name}")
@@ -127,11 +126,24 @@ class Command(BaseCommand):
             if vmh.merge_videos_in_folder(input_folder, output_name):
                 self.stdout.write(self.style.SUCCESS("\nVideo merging completed successfully!"))
 
+            counter+=1
+
+        input_folder = r"C:\Users\Ankit.Anand\PycharmProjects\nso\merged_output_videos"
+        output_name = 'final_consolidated_property_video.mp4'
+
+        self.stdout.write(f"Starting video merge process for folder: {input_folder}")
+        self.stdout.write(f"Output video will be named: {output_name}")
+
+        if vmh.merge_videos_in_folder(input_folder, output_name):
+            self.stdout.write(self.style.SUCCESS("\nVideo merging completed successfully!"))
+        else:
+            raise CommandError("\nVideo merging failed. Please check the error messages above.")
+
 
 def get_filenames_in_folder(folder_path):
     full_paths = []
     for item in os.listdir(folder_path):
         item_path = os.path.join(folder_path, item)
         if os.path.isfile(item_path):
-            full_paths.append(item_path)  # Append the full path (item_path) instead of just the filename (item)
+            full_paths.append(item_path)
     return full_paths
