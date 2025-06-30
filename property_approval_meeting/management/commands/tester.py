@@ -4,7 +4,8 @@ import os
 
 from googleapiclient.errors import HttpError
 
-from ...helpers import download_videos_from_google_drive_helper as gdh, convert_ppt_to_video_helper as cph
+from ...helpers import download_videos_from_google_drive_helper as gdh, convert_ppt_to_video_helper as cph, video_merger_helper as vmh
+
 logger = logging.getLogger(__name__)
 
 class ConversionError(Exception):
@@ -14,8 +15,6 @@ class Command(BaseCommand):
     help = 'This is a utility management command for testing purpose'
 
     def handle(self, *args, **options):
-        # helper.main()
-        # print("here")
         service = gdh.get_drive_service()
         os.makedirs(gdh.DOWNLOAD_DIR, exist_ok=True)
         SHARED_FOLDER_ID = '1e2GWlwWaVqDVUQsp790UU017s94zRsnw'
@@ -92,8 +91,17 @@ class Command(BaseCommand):
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"An unexpected error occurred during full scan setup: {e}"))
 
-        ppt_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\BD_Presentation_Luxmi_enterprises_adj_redtape_showroom.pptx"
-        output_video_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\sample.mp4"
+        folder_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos"
+        ppt_path = ""
+        filenames = get_filenames_in_folder(folder_path)
+        print("----------------------------")
+        print(filenames)
+        for f in  filenames:
+            if ".pptx" in f:
+                ppt_path = f
+                break
+        print(f)
+        output_video_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos\0000_ppt_vid.mp4"
 
         cph.convert_pptx_to_video(
             ppt_path=ppt_path,
@@ -102,3 +110,23 @@ class Command(BaseCommand):
             style=self.style
         )
         self.stdout.write(self.style.SUCCESS("Overall video conversion process completed successfully."))
+
+        input_folder = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos"
+        output_name = "merged_sample_vid.mp4"
+
+        self.stdout.write(f"Starting video merge process for folder: {input_folder}")
+        self.stdout.write(f"Output video will be named: {output_name}")
+
+        if vmh.merge_videos_in_folder(input_folder, output_name):
+            self.stdout.write(self.style.SUCCESS("\nVideo merging completed successfully!"))
+
+
+
+
+def get_filenames_in_folder(folder_path):
+    full_paths = []
+    for item in os.listdir(folder_path):
+        item_path = os.path.join(folder_path, item)
+        if os.path.isfile(item_path):
+            full_paths.append(item_path)  # Append the full path (item_path) instead of just the filename (item)
+    return full_paths
