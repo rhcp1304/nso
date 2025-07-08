@@ -108,7 +108,7 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
     os.makedirs(temp_normalized_dir, exist_ok=True)
     logger.info(f"Created temporary normalization folder: {temp_normalized_dir}")
     normalized_paths = []
-    max_workers = os.cpu_count() or 4
+    max_workers = 5
     logger.info(f"Starting video normalization process (parallelized)...")
     logger.info(
         f"Using FFmpeg Preset: '{FFMPEG_NORMALIZATION_COMMAND_TEMPLATE[4]}' and CRF: {FFMPEG_NORMALIZATION_COMMAND_TEMPLATE[6]} for faster encoding.")

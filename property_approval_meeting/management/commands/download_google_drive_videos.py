@@ -12,7 +12,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         service = helper.get_drive_service()
         os.makedirs(helper.DOWNLOAD_DIR, exist_ok=True)
-        SHARED_FOLDER_ID = '1nMw_vNHZyUxKQ6TUauKFHnuvHR6uV71c'
+        SHARED_FOLDER_ID = '1jA3P54-AVViTAMpziKJ-SFRuRgvNP-vh'
         if SHARED_FOLDER_ID == 'YOUR_SHARED_FOLDER_ID_HERE' or not SHARED_FOLDER_ID:
             self.stdout.write(self.style.ERROR(
                 "Error: Please update 'SHARED_FOLDER_ID' in 'download_google_drive_videos.py' "
