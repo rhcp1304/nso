@@ -17,7 +17,7 @@ class Command(BaseCommand):
     help = 'This is a utility management command for testing purpose'
 
     def handle(self, *args, **options):
-        SHARED_FOLDER_ID_LIST = ['1hd0xKrxvnCrHr1aEUB9dswlrJolxsm2C']
+        SHARED_FOLDER_ID_LIST = ['1R31zU-oOouR-WONTxv2Wit35RCPlKjiI']
         folder_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos"
 
         counter=0

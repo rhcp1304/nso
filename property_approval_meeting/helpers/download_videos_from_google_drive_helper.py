@@ -21,14 +21,14 @@ TOKEN_FILE_PATH = os.path.join(BASE_DIR, 'token.pickle')
 LAST_CHANGE_TOKEN_FULL_PATH = os.path.join(BASE_DIR, LAST_CHANGE_TOKEN_FILE)
 
 FILES_TO_DOWNLOAD_MIME_TYPES = [
-    # 'video/mp4',
-    # 'video/x-msvideo',
-    # 'video/x-flv',
-    # 'video/quicktime',
-    # 'video/webm',
-    # 'video/3gpp',
-    # 'video/mpeg',
-    # 'video/x-matroska',
+    'video/mp4',
+    'video/x-msvideo',
+    'video/x-flv',
+    'video/quicktime',
+    'video/webm',
+    'video/3gpp',
+    'video/mpeg',
+    'video/x-matroska',
     'application/vnd.openxmlformats-officedocument.presentationml.presentation',
     'application/vnd.google-apps.presentation',
 ]
