@@ -2,18 +2,10 @@ import os
 import subprocess
 import logging
 import shutil
-import tempfile
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# --- Configuration ---
-# Path to the FFmpeg executable
 FFMPEG_PATH = r"C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffmpeg.exe"
-# Path to the FFprobe executable, usually in the same directory as ffmpeg
 FFPROBE_PATH = r"C:\Users\Ankit.Anand\Downloads\ffmpeg\ffmpeg\bin\ffprobe.exe"
 
-# FFmpeg command template for the final merge.
-# This uses `-c copy` to merge without re-encoding, which is the fastest method.
-# Use this for "just merging."
 FFMPEG_MERGE_COMMAND_TEMPLATE = [
     FFMPEG_PATH,
     '-f', 'concat',
@@ -24,7 +16,6 @@ FFMPEG_MERGE_COMMAND_TEMPLATE = [
     '{output_path}'
 ]
 
-# --- Logging Setup ---
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
@@ -33,10 +24,7 @@ logging.basicConfig(level=logging.INFO,
                     ])
 logger = logging.getLogger(__name__)
 
-
-# --- Helper Functions ---
 def get_video_duration(video_path):
-    """Gets the duration of a video file using ffprobe."""
     try:
         ffprobe_command = [
             FFPROBE_PATH,
@@ -73,7 +61,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
         logger.warning(f"No video files found in '{input_folder}' to merge.")
         return False
 
-    # Handle the special case of a single video
     if len(video_files) == 1:
         source_video = video_files[0]
         # Check if the single video is already the desired output file
@@ -90,7 +77,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
                 logger.error(f"Failed to copy single video {source_video} to {output_filename}: {e}")
                 return False
 
-    # Sort files and place the "pptx" video at the beginning
     pptx_video_path = None
 
     if pptx_video_path and pptx_video_path in video_files:
@@ -104,7 +90,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
     for v_file in video_files:
         logger.info(f"- {os.path.basename(v_file)}")
 
-    # Create a timestamp file for logging purposes
     timestamp_filename = os.path.join(os.path.dirname(output_filename),
                                       f"{os.path.splitext(os.path.basename(output_filename))[0]}_timestamps.txt")
     logger.info(f"Creating merged video timestamp file: {timestamp_filename}")
@@ -126,7 +111,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
     except Exception as e:
         logger.warning(f"Failed to create timestamp file: {e}")
 
-    # Create the FFmpeg concat list file
     concat_list_path = os.path.join(input_folder, "ffmpeg_concat_list.txt")
     try:
         with open(concat_list_path, "w") as f:
@@ -137,7 +121,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
         logger.error(f"Failed to create FFmpeg concat list file: {e}")
         return False
 
-    # Execute the final merge command
     ffmpeg_command = [arg.format(concat_list_path=concat_list_path, output_path=output_filename) for arg in
                       FFMPEG_MERGE_COMMAND_TEMPLATE]
 
