@@ -60,16 +60,6 @@ def get_video_duration(video_path):
 
 
 def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
-    """
-    Merges all video files in a folder into a single file without normalization.
-
-    Args:
-        input_folder (str): The path to the folder containing video files.
-        output_filename (str): The desired full path and filename for the final video.
-
-    Returns:
-        bool: True if the merge was successful, False otherwise.
-    """
     logger.info(f"Starting video merge process for folder: {input_folder}")
     logger.info(f"Output video will be named: {os.path.basename(output_filename)}")
 
@@ -102,10 +92,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
 
     # Sort files and place the "pptx" video at the beginning
     pptx_video_path = None
-    for video in video_files:
-        if "station road.mp4" in os.path.basename(video).lower() and "chandausi" in os.path.basename(video).lower():
-            pptx_video_path = video
-            break
 
     if pptx_video_path and pptx_video_path in video_files:
         video_files.remove(pptx_video_path)

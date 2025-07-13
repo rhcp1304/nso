@@ -138,7 +138,6 @@ def process_downloaded_folder(local_folder_path: str, drive_folder_name: str):
         # Step 2: Convert PPTX to video if found
         if pptx_file:
             logger.info(f"PPTX file found: '{os.path.basename(pptx_file)}'. Converting to video...")
-            # Place converted PPTX video in the same local_folder_path
             converted_pptx_video_path = os.path.join(local_folder_path,
                                                      f"{os.path.splitext(os.path.basename(pptx_file))[0]}.mp4")
 
@@ -161,8 +160,6 @@ def process_downloaded_folder(local_folder_path: str, drive_folder_name: str):
                 logger.error(_style.ERROR(
                     f"An unexpected error occurred during PPTX conversion for '{os.path.basename(pptx_file)}': {e}"))
                 converted_pptx_video_path = None  # Mark as failed
-
-        # Step 3: Prepare the list of videos for merging (PPT video first)
         videos_to_merge_paths = []
         if converted_pptx_video_path and os.path.exists(converted_pptx_video_path):
             videos_to_merge_paths.append(converted_pptx_video_path)

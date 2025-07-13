@@ -1,14 +1,9 @@
 import os
-import io
 import mimetypes
-# Removed django imports as per request
-import pickle  # Added to handle .pickle files
-import json  # Added to handle .json files
+import pickle
+import json
 
-# Define BASE_DIR relative to this helper script's location
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Define credential and token file paths relative to this BASE_DIR
 CREDENTIALS_FILE_PATH = os.path.join(BASE_DIR, 'credentials.json')
 TOKEN_FILE_PATH = os.path.join(BASE_DIR, 'token.json')  # Expected token.json path
 TOKEN_PICKLE_PATH = os.path.join(BASE_DIR, 'token.pickle')  # Path for legacy .pickle file
@@ -108,8 +103,8 @@ def find_drive_folder(service, folder_name: str) -> str | None:
         query = f"name='{folder_name}' and mimeType='application/vnd.google-apps.folder' and trashed=false"
         results = service.files().list(
             q=query,
-            spaces='drive',  # Search in Google Drive (My Drive and shared with me)
-            corpus='user',  # Include shared items
+            spaces='drive',
+            corpus='user',
             fields="files(id, name)"
         ).execute()
 

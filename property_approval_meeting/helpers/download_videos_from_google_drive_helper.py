@@ -29,8 +29,8 @@ FILES_TO_DOWNLOAD_MIME_TYPES = [
     'video/3gpp',
     'video/mpeg',
     'video/x-matroska',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    'application/vnd.google-apps.presentation',
+    # 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    # 'application/vnd.google-apps.presentation',
 ]
 
 
