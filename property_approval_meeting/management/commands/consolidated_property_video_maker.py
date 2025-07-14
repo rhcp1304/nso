@@ -6,7 +6,7 @@ import os
 
 from googleapiclient.errors import HttpError
 
-from ...helpers import download_videos_from_google_drive_helper as gdh, convert_ppt_to_video_helper as cph, video_merger_helper as vmh
+from ...helpers import download_videos_from_google_drive_helper as gdh, video_merger_helper as vmh
 
 logger = logging.getLogger(__name__)
 
