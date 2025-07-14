@@ -10,6 +10,7 @@ SCOPES = [
     'https://www.googleapis.com/auth/presentations'
 ]
 
+
 def authenticate_google_api_user(client_secret_path, token_path):
     creds = None
     if os.path.exists(token_path):
@@ -131,6 +132,18 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
             print("No video files found to insert.")
             return target_presentation_id
 
+        # --- FIX: CORRECTLY GET THE NUMBER OF SLIDES ---
+        print("Getting current number of slides...")
+        presentation_details = slides_service.presentations().get(
+            presentationId=target_presentation_id,
+            # CORRECTED: The 'slides.pageObjectId' field is invalid. 'slides' is correct.
+            fields='slides'
+        ).execute()
+
+        num_existing_slides = len(presentation_details.get('slides', []))
+        print(f"Found {num_existing_slides} existing slides.")
+        # --- END OF FIX ---
+
         print(f"Inserting {len(video_files)} videos into the presentation...")
         requests = []
         for video in video_files:
@@ -139,7 +152,8 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
             requests.append({
                 'createSlide': {
                     'objectId': new_slide_object_id,
-                    'insertionIndex': 0  # Inserts at the end (0 means after all existing slides)
+                    # CORRECTED: Use the total number of slides as the insertion index
+                    'insertionIndex': num_existing_slides
                 }
             })
             print(f"Added new slide for video: {video['name']}")
