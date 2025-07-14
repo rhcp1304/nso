@@ -16,8 +16,16 @@ class ConversionError(Exception):
 class Command(BaseCommand):
     help = 'This is a utility management command for testing purpose'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--folder_id',
+            type=str,
+            required=True,
+            help='ID pof shared Google Drive folder containing property videos'
+        )
+
     def handle(self, *args, **options):
-        SHARED_FOLDER_ID = '1R31zU-oOouR-WONTxv2Wit35RCPlKjiI'
+        SHARED_FOLDER_ID = options['folder_id']
         folder_path = r"C:\Users\Ankit.Anand\PycharmProjects\nso\downloaded_videos"
 
         shutil.rmtree(folder_path)
