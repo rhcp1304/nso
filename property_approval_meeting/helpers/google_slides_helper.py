@@ -1,36 +1,17 @@
 import os
-import io
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from googleapiclient.http import MediaIoBaseDownload
 import uuid
-import json
 
-# Define the necessary scopes for Google Drive and Google Slides APIs
-# Ensure these scopes are enabled in your OAuth 2.0 Client ID in Google Cloud Console
 SCOPES = [
     'https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/presentations'
 ]
 
 def authenticate_google_api_user(client_secret_path, token_path):
-    """
-    Authenticates with Google APIs using user credentials (OAuth 2.0).
-    Requires initial browser interaction if token.json is not found or invalid.
-
-    Args:
-        client_secret_path (str): Path to the OAuth 2.0 Client ID JSON file (your original credentials.json).
-        token_path (str): Path to store/load the user's token (e.g., token.json).
-
-    Returns:
-        tuple: A tuple containing (drive_service, slides_service) objects.
-               Returns (None, None) if authentication fails.
-    """
     creds = None
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first time.
     if os.path.exists(token_path):
         try:
             creds = Credentials.from_authorized_user_file(token_path, SCOPES)
@@ -73,19 +54,6 @@ def authenticate_google_api_user(client_secret_path, token_path):
 
 
 def create_slides_from_folder(folder_id, client_secret_path, token_path):
-    """
-    Creates a Google Slides presentation from a PPT in a Google Drive folder
-    and inserts all videos from the same folder at the end.
-
-    Args:
-        folder_id (str): The ID of the Google Drive folder containing the PPT and videos.
-        client_secret_path (str): Path to the OAuth 2.0 Client ID JSON file.
-        token_path (str): Path to store/load the user's token (e.g., token.json).
-
-    Returns:
-        str: The ID of the newly created or updated Google Slides presentation,
-             or None if the process fails.
-    """
     drive_service, slides_service = authenticate_google_api_user(client_secret_path, token_path)
     if not drive_service or not slides_service:
         return None
@@ -127,12 +95,6 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
                 print(f"Found video file: '{item['name']}' (ID: {item['id']})")
 
         target_presentation_id = None
-
-        # This section is commented out to prevent reusing an existing Google Slides file
-        # and to force the creation of a new one, which solves the permission issue.
-        # if google_slides_id:
-        #     target_presentation_id = google_slides_id
-        #     print(f"Using existing Google Slides presentation: {presentation_title}")
 
         if ppt_file_id:
             # Convert PPT to Google Slides
