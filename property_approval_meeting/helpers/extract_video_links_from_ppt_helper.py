@@ -1,7 +1,6 @@
 import os
 import re
 import io
-import mimetypes
 
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -10,33 +9,17 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 from pptx import Presentation
 
-# --- Configuration for Google Drive API ---
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/drive']  # Full access to Google Drive
-
-# The file token.json stores the user's access and refresh tokens, and is
-# created automatically when the authorization flow completes for the first
-# time.
+SCOPES = ['https://www.googleapis.com/auth/drive']
 TOKEN_FILE = 'token.json'
-CREDENTIALS_FILE = 'bdstorage_credentials.json'  # Downloaded from Google Cloud Console
-
-# API details
+CREDENTIALS_FILE = 'bdstorage_credentials.json'
 API_SERVICE_NAME = 'drive'
 API_VERSION = 'v3'
 
 
 class DriveHelper:
-    """
-    A helper class to interact with Google Drive API and extract links from PPTX.
-    Designed to work with Django's management command stdout for logging.
-    """
-
     def __init__(self, output_stream=None, style=None):
-        # Allow passing Django's stdout and style for formatted logging
         self.output_stream = output_stream if output_stream is not None else print
-        self.style = style  # Django's self.style object from BaseCommand
-
-        # Define simple styles if Django style is not provided (for standalone testing)
+        self.style = style
         if not self.style:
             class DefaultStyle:
                 def SUCCESS(self, msg): return f"SUCCESS: {msg}"
@@ -48,16 +31,13 @@ class DriveHelper:
             self.style = DefaultStyle()
 
     def _log(self, message, style_func=None):
-        """Internal logging method using the provided output_stream and style."""
         if style_func:
             self.output_stream(style_func(message))
         else:
             self.output_stream(message)
 
     def get_authenticated_drive_service(self):
-        """Authenticates with Google Drive API and returns a service object."""
         creds = None
-        # Paths are relative to the current working directory (usually project root for manage.py)
         token_path = os.path.join(os.getcwd(), TOKEN_FILE)
         credentials_path = os.path.join(os.getcwd(), CREDENTIALS_FILE)
 
@@ -65,7 +45,6 @@ class DriveHelper:
             self._log(f"Loading credentials from {TOKEN_FILE}...")
             creds = Credentials.from_authorized_user_file(token_path, SCOPES)
 
-        # If there are no (valid) credentials available, or they are expired, refresh/log in.
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 self._log("Refreshing expired credentials...")
@@ -74,9 +53,9 @@ class DriveHelper:
                     creds.refresh(flow.credentials)
                 except Exception as e:
                     self._log(f"Error refreshing token: {e}. Re-authenticating...", style_func=self.style.ERROR)
-                    creds = None  # Force re-auth if refresh fails
+                    creds = None
 
-            if not creds:  # If still no valid credentials after refresh attempt
+            if not creds:
                 self._log(f"No valid credentials found. Initiating authentication flow (check your browser)...")
                 if not os.path.exists(credentials_path):
                     self._log(
@@ -87,7 +66,6 @@ class DriveHelper:
                 flow = InstalledAppFlow.from_client_secrets_file(credentials_path, SCOPES)
                 creds = flow.run_local_server(port=0)
 
-            # Save the credentials for the next run
             self._log(f"Saving new credentials to {TOKEN_FILE}...")
             with open(token_path, 'w') as token:
                 token.write(creds.to_json())
@@ -96,13 +74,7 @@ class DriveHelper:
         return build(API_SERVICE_NAME, API_VERSION, credentials=creds)
 
     def find_pptx_in_drive_folder(self, service, folder_id: str):
-        """
-        Searches for a PPTX file within a specific Google Drive folder.
-        Returns a tuple of (file_id, file_name) if found, otherwise (None, None).
-        Handles cases where multiple PPTXs are found (logs warning, returns first).
-        """
         self._log(f"Searching for a PPTX file in folder ID '{folder_id}'...")
-        # Query for files in the folder, not trashed, and with '.pptx' extension
         query = f"'{folder_id}' in parents and mimeType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation' and trashed = false"
 
         try:
@@ -129,10 +101,6 @@ class DriveHelper:
             return None, None
 
     def download_file_from_drive(self, service, file_id: str, destination_path: str):
-        """
-        Downloads a file from Google Drive.
-        Returns True on success, False on failure.
-        """
         try:
             request = service.files().get_media(fileId=file_id)
             fh = io.FileIO(destination_path, 'wb')
@@ -140,7 +108,6 @@ class DriveHelper:
             done = False
             while done is False:
                 status, done = downloader.next_chunk()
-                # self._log(f"Download {int(status.progress() * 100)}%.") # Uncomment for verbose progress
             return True
         except HttpError as error:
             self._log(f"An error occurred during file download from Drive (ID: {file_id}): {error}",
@@ -152,10 +119,6 @@ class DriveHelper:
             return False
 
     def upload_file_to_drive(self, service, file_name: str, file_path: str, mime_type: str, parent_folder_id: str):
-        """
-        Uploads a file to a specific Google Drive folder.
-        Returns the new file ID if successful, otherwise None.
-        """
         file_metadata = {
             'name': file_name,
             'parents': [parent_folder_id]
@@ -174,10 +137,6 @@ class DriveHelper:
             return None
 
     def extract_all_potential_links_from_last_slide(self, pptx_file_path: str) -> list[str]:
-        """
-        Extracts all potential URLs from the last slide of a PPTX file.
-        This is your provided function, adapted to use internal logging.
-        """
         if not os.path.exists(pptx_file_path):
             self._log(f"Error: PPTX file not found locally at '{pptx_file_path}'", style_func=self.style.ERROR)
             return []
