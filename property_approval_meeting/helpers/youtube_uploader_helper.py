@@ -22,7 +22,6 @@ YOUTUBE_TOKEN_PATH = os.path.join(BASE_DIR, YOUTUBE_TOKEN_FILE)
 
 
 def get_youtube_service():
-    """Authenticates and returns a Google YouTube Data API service object."""
     creds = None
     if os.path.exists(YOUTUBE_TOKEN_PATH):
         try:

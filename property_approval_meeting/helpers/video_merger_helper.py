@@ -63,7 +63,6 @@ def merge_videos_in_folder(input_folder: str, output_filename: str) -> bool:
 
     if len(video_files) == 1:
         source_video = video_files[0]
-        # Check if the single video is already the desired output file
         if os.path.normpath(source_video) == os.path.normpath(output_filename):
             logger.info(f"Input and output are the same file. Skipping merge.")
             return True

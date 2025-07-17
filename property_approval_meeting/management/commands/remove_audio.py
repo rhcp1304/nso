@@ -19,10 +19,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         input_video_path = options['input_path']
         output_video_path = options['output_path']
-
         self.stdout.write(f"Attempting to remove audio from '{input_video_path}'...")
-
-        # Call the helper function
         success = helper.remove_audio_from_video(input_video_path, output_video_path)
 
         if success:
