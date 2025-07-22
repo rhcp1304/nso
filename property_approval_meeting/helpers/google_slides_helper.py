@@ -65,7 +65,6 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
     presentation_title = "Generated Presentation"
 
     try:
-        # List files in the specified Google Drive folder
         print(f"Listing files in Google Drive folder: {folder_id}...")
         results = drive_service.files().list(
             q=f"'{folder_id}' in parents and trashed = false",
@@ -77,7 +76,6 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
             print(f"No files found in folder: {folder_id}")
             return None
 
-        # Categorize files: find PPT/Google Slides and videos
         for item in items:
             mime_type = item['mimeType']
             if mime_type in [
@@ -98,12 +96,11 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
         target_presentation_id = None
 
         if ppt_file_id:
-            # Convert PPT to Google Slides
             print(f"Converting PowerPoint '{presentation_title}' to Google Slides...")
             copied_file_metadata = {
                 'name': presentation_title,
                 'mimeType': 'application/vnd.google-apps.presentation',
-                'parents': [folder_id]  # Keep it in the same folder
+                'parents': [folder_id]
             }
             copied_file = drive_service.files().copy(
                 fileId=ppt_file_id,
@@ -113,7 +110,6 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
             print(f"Conversion complete. New Google Slides ID: {target_presentation_id}")
         else:
             print("No PowerPoint or existing Google Slides presentation found in the folder.")
-            # Option: Create a new blank presentation if no PPT is found
             print("Creating a new blank Google Slides presentation...")
             new_presentation_body = {
                 'title': "New Blank Presentation (Generated)",
@@ -127,38 +123,31 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
             print("Failed to identify or create a Google Slides presentation.")
             return None
 
-        # Now, add videos to the presentation
         if not video_files:
             print("No video files found to insert.")
             return target_presentation_id
 
-        # --- FIX: CORRECTLY GET THE NUMBER OF SLIDES ---
         print("Getting current number of slides...")
         presentation_details = slides_service.presentations().get(
             presentationId=target_presentation_id,
-            # CORRECTED: The 'slides.pageObjectId' field is invalid. 'slides' is correct.
             fields='slides'
         ).execute()
 
         num_existing_slides = len(presentation_details.get('slides', []))
         print(f"Found {num_existing_slides} existing slides.")
-        # --- END OF FIX ---
 
         print(f"Inserting {len(video_files)} videos into the presentation...")
         requests = []
         for video in video_files:
-            # Create a new blank slide for each video
             new_slide_object_id = f"slide_{uuid.uuid4().hex}"
             requests.append({
                 'createSlide': {
                     'objectId': new_slide_object_id,
-                    # CORRECTED: Use the total number of slides as the insertion index
                     'insertionIndex': num_existing_slides
                 }
             })
             print(f"Added new slide for video: {video['name']}")
 
-            # Insert the video onto the newly created slide
             video_element_id = f"video_{uuid.uuid4().hex}"
             requests.append({
                 'createVideo': {
@@ -167,11 +156,11 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
                     'id': video['id'],
                     'elementProperties': {
                         'pageObjectId': new_slide_object_id,
-                        'size': {  # Approximate size for a standard slide (16:9 aspect ratio)
-                            'width': {'magnitude': 9144000, 'unit': 'EMU'},  # 10 inches
-                            'height': {'magnitude': 5143500, 'unit': 'EMU'}  # ~5.625 inches
+                        'size': {
+                            'width': {'magnitude': 9144000, 'unit': 'EMU'},
+                            'height': {'magnitude': 5143500, 'unit': 'EMU'}
                         },
-                        'transform': {  # Center the video
+                        'transform': {
                             'scaleX': 1,
                             'scaleY': 1,
                             'translateX': 0,
@@ -183,7 +172,6 @@ def create_slides_from_folder(folder_id, client_secret_path, token_path):
             })
             print(f"Added video '{video['name']}' to its slide.")
 
-        # Execute all batch update requests
         if requests:
             slides_service.presentations().batchUpdate(
                 presentationId=target_presentation_id,
