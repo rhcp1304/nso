@@ -57,3 +57,4 @@ youtube_credentials.json # YouTube API credentials
 /final_consolidated_property_video.mp4
 /final_consolidated_property_video_timestamps.txt
 /merged_output_videos/
+/property_approval_meeting/helpers/temp_drive_downloads
