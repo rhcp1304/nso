@@ -1,7 +1,9 @@
 import os
 import re
 from django.core.management.base import BaseCommand, CommandError
-from ...helpers.extract_video_links_from_ppt_helper import DriveHelper
+from googleapiclient.errors import HttpError
+
+from ...helpers.extract_and_upload_video_links_from_ppt_helper import DriveHelper
 
 
 class Command(BaseCommand):
@@ -51,12 +53,15 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f"PPTX downloaded to: {local_pptx_path}"))
 
         try:
-            self.stdout.write("Extracting potential video links from PPTX...")
-            extracted_links = drive_helper.extract_all_potential_links_from_last_slide(local_pptx_path)
-            self.stdout.write(f"Found {len(extracted_links)} potential links.")
+            self.stdout.write("Extracting potential video links and associated names from PPTX...")
+            extracted_links_with_names = drive_helper.extract_all_potential_links_from_last_slide(local_pptx_path)
+            self.stdout.write(f"Found {len(extracted_links_with_names)} potential links.")
             google_drive_file_id_pattern = re.compile(r'drive\.google\.com/(?:file/d/|uc\?id=)([a-zA-Z0-9_-]+)')
 
-            for link in extracted_links:
+            for item in extracted_links_with_names:
+                link = item['link']
+                suggested_name = item['name'] # This is the name extracted from PPTX, e.g., "Wellness Forever"
+
                 match = google_drive_file_id_pattern.search(link)
                 if match:
                     video_drive_id = match.group(1)
@@ -64,10 +69,20 @@ class Command(BaseCommand):
 
                     try:
                         file_metadata = service.files().get(fileId=video_drive_id, fields='name,mimeType').execute()
-                        video_name = file_metadata.get('name', f"unknown_video_{video_drive_id}")
+                        original_video_name_from_drive = file_metadata.get('name', f"unknown_video_{video_drive_id}")
                         video_mime_type = file_metadata.get('mimeType', 'application/octet-stream')
 
-                        local_video_path = os.path.join(temp_download_dir, video_name)
+                        # Determine the name to use for the downloaded video
+                        if suggested_name and suggested_name.strip():
+                            # Remove invalid filename characters from the suggested name
+                            clean_suggested_name = re.sub(r'[\\/:*?"<>|]', '', suggested_name).strip()
+                            # Append original extension if possible
+                            name_without_ext, ext = os.path.splitext(original_video_name_from_drive)
+                            video_name_for_download = f"{clean_suggested_name}{ext}" if ext else clean_suggested_name
+                        else:
+                            video_name_for_download = original_video_name_from_drive # Fallback to Drive's name
+
+                        local_video_path = os.path.join(temp_download_dir, video_name_for_download)
 
                         # Handle potential duplicate filenames in the local temp directory
                         counter = 1
@@ -77,7 +92,7 @@ class Command(BaseCommand):
                             local_video_path = f"{name_part}_{counter}{ext_part}"
                             counter += 1
 
-                        self.stdout.write(f"Downloading Google Drive video '{video_name}' to {local_video_path}...")
+                        self.stdout.write(f"Downloading Google Drive video '{video_name_for_download}' to {local_video_path}...")
 
                         if drive_helper.download_file_from_drive(service, video_drive_id, local_video_path):
                             self.stdout.write(self.style.SUCCESS(f"Successfully downloaded: {local_video_path}"))
@@ -89,15 +104,15 @@ class Command(BaseCommand):
                                 continue
 
                             self.stdout.write(
-                                f"Uploading '{video_name}' back to Google Drive folder '{google_drive_folder_id}'...")
-                            uploaded_file_id = drive_helper.upload_file_to_drive(service, video_name, local_video_path,
+                                f"Uploading '{video_name_for_download}' back to Google Drive folder '{google_drive_folder_id}'...")
+                            uploaded_file_id = drive_helper.upload_file_to_drive(service, video_name_for_download, local_video_path,
                                                                                  video_mime_type,
                                                                                  google_drive_folder_id)
                             if uploaded_file_id:
                                 self.stdout.write(self.style.SUCCESS(
-                                    f"Successfully uploaded: {video_name} (New Drive ID: {uploaded_file_id})"))
+                                    f"Successfully uploaded: {video_name_for_download} (New Drive ID: {uploaded_file_id})"))
                             else:
-                                self.stdout.write(self.style.ERROR(f"Failed to upload '{video_name}' to Google Drive."))
+                                self.stdout.write(self.style.ERROR(f"Failed to upload '{video_name_for_download}' to Google Drive."))
                         else:
                             self.stdout.write(self.style.ERROR(f"Failed to download Google Drive video: {link}"))
 

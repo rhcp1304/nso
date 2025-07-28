@@ -136,7 +136,7 @@ class DriveHelper:
                       style_func=self.style.ERROR)
             return None
 
-    def extract_all_potential_links_from_last_slide(self, pptx_file_path: str) -> list[str]:
+    def extract_all_potential_links_from_last_slide(self, pptx_file_path: str) -> list[dict]:
         if not os.path.exists(pptx_file_path):
             self._log(f"Error: PPTX file not found locally at '{pptx_file_path}'", style_func=self.style.ERROR)
             return []
@@ -145,7 +145,7 @@ class DriveHelper:
             self._log(f"Error: '{pptx_file_path}' is not a .pptx file.", style_func=self.style.ERROR)
             return []
 
-        found_urls = set()
+        found_links_with_names = []
         url_pattern = re.compile(r'https?://[^\s\]\)\}>"]+')
 
         try:
@@ -155,47 +155,104 @@ class DriveHelper:
                 return []
 
             last_slide = prs.slides[-1]
-            self._log(f"Analyzing the last slide (Slide {len(prs.slides)}) for all potential links...")
+            self._log(f"Analyzing the last slide (Slide {len(prs.slides)}) for all potential links and associated names...")
 
-            def find_urls_in_text_content(text_frame_obj):
+            def get_text_from_cell(cell):
+                text_content = []
+                if cell.text_frame:
+                    for paragraph in cell.text_frame.paragraphs:
+                        text_content.append("".join([run.text for run in paragraph.runs]))
+                return " ".join(text_content).strip()
+
+            def find_urls_in_text_content(text_frame_obj, associated_name=None):
                 for paragraph in text_frame_obj.paragraphs:
                     full_text = "".join([run.text for run in paragraph.runs])
+                    # Find URLs in the plain text of the paragraph
                     for match in url_pattern.finditer(full_text):
-                        found_urls.add(match.group(0).strip())
+                        found_links_with_names.append({
+                            'name': associated_name if associated_name else None,
+                            'link': match.group(0).strip()
+                        })
+                    # Find URLs associated with runs (hyperlinks)
+                    for run in paragraph.runs:
+                        if run.hyperlink.address:
+                            url = run.hyperlink.address
+                            if url:
+                                found_links_with_names.append({
+                                    'name': associated_name if associated_name else None,
+                                    'link': url
+                                })
 
             for shape in last_slide.shapes:
+                # Handle shapes with direct hyperlinks (e.g., images, specific shapes)
                 if hasattr(shape, 'action') and shape.action.hyperlink:
                     url = shape.action.hyperlink.address
                     if url:
-                        found_urls.add(url)
+                        found_links_with_names.append({
+                            'name': None,
+                            'link': url
+                        })
 
                 if shape.has_text_frame:
                     find_urls_in_text_content(shape.text_frame)
-                    for paragraph in shape.text_frame.paragraphs:
-                        for run in paragraph.runs:
-                            if run.hyperlink.address:
-                                url = run.hyperlink.address
-                                if url:
-                                    found_urls.add(url)
 
                 if shape.has_table:
-                    for row in shape.table.rows:
+                    table = shape.table
+                    # Try to find "Name" or "Store Name" column index
+                    name_col_idx = -1
+                    store_name_col_idx = -1
+                    if table.rows:
+                        header_row = table.rows[0]
+                        for i, cell in enumerate(header_row.cells):
+                            cell_text = get_text_from_cell(cell).lower().strip()
+                            if "name" == cell_text:
+                                name_col_idx = i
+                            elif "store name" == cell_text:
+                                store_name_col_idx = i
+
+                    for row_idx, row in enumerate(table.rows):
+                        if row_idx == 0: continue # Skip header row
+
+                        current_row_name = None
+                        if name_col_idx != -1 and name_col_idx < len(row.cells):
+                            current_row_name = get_text_from_cell(row.cells[name_col_idx])
+                        elif store_name_col_idx != -1 and store_name_col_idx < len(row.cells):
+                            current_row_name = get_text_from_cell(row.cells[store_name_col_idx])
+
+                        # Iterate through cells in the current row to find links
                         for cell in row.cells:
                             if cell.text_frame:
-                                find_urls_in_text_content(cell.text_frame)
+                                find_urls_in_text_content(cell.text_frame, associated_name=current_row_name)
                                 for paragraph in cell.text_frame.paragraphs:
                                     for run in paragraph.runs:
                                         if run.hyperlink.address:
                                             url = run.hyperlink.address
                                             if url:
-                                                found_urls.add(url)
+                                                found_links_with_names.append({
+                                                    'name': current_row_name if current_row_name else None,
+                                                    'link': url
+                                                })
 
+                # Image hyperlinks
                 if hasattr(shape, 'image') and hasattr(shape.image, 'hyperlink') and shape.image.hyperlink.address:
                     url = shape.image.hyperlink.address
                     if url:
-                        found_urls.add(url)
+                        found_links_with_names.append({
+                            'name': None,
+                            'link': url
+                        })
 
-            return list(found_urls)
+            # Filter out duplicate links, prioritizing entries with an associated name
+            unique_links_with_names = {}
+            for item in found_links_with_names:
+                link = item['link']
+                name = item['name']
+                if link not in unique_links_with_names:
+                    unique_links_with_names[link] = {'name': name, 'link': link}
+                elif name is not None and unique_links_with_names[link]['name'] is None:
+                    unique_links_with_names[link]['name'] = name
+
+            return list(unique_links_with_names.values())
 
         except Exception as e:
             self._log(f"An error occurred while extracting links from PPTX file: {e}", style_func=self.style.ERROR)
