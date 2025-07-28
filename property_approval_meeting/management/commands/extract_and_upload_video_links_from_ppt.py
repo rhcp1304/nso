@@ -51,7 +51,13 @@ class Command(BaseCommand):
         if not drive_helper.download_file_from_drive(service, pptx_drive_id, local_pptx_path):
             raise CommandError(self.style.ERROR(f"Failed to download PPTX file from Drive: {pptx_file_name}"))
         self.stdout.write(self.style.SUCCESS(f"PPTX downloaded to: {local_pptx_path}"))
-
+        market_name_prefix_raw = drive_helper.get_market_name_prefix(local_pptx_path)
+        if market_name_prefix_raw:
+            prefix_for_filename = f"{re.sub(r'[\\/:*?"<>|]', '', market_name_prefix_raw).strip()} "
+            self.stdout.write(f"Using market name prefix for videos: '{prefix_for_filename}'")
+        else:
+            prefix_for_filename = ""
+            self.stdout.write("No valid market name prefix found or extracted.")
         try:
             self.stdout.write("Extracting potential video links and associated names from PPTX...")
             extracted_links_with_names = drive_helper.extract_all_potential_links_from_last_slide(local_pptx_path)
@@ -60,7 +66,7 @@ class Command(BaseCommand):
 
             for item in extracted_links_with_names:
                 link = item['link']
-                suggested_name = item['name'] # This is the name extracted from PPTX, e.g., "Wellness Forever"
+                suggested_name = item['name']
 
                 match = google_drive_file_id_pattern.search(link)
                 if match:
@@ -71,48 +77,47 @@ class Command(BaseCommand):
                         file_metadata = service.files().get(fileId=video_drive_id, fields='name,mimeType').execute()
                         original_video_name_from_drive = file_metadata.get('name', f"unknown_video_{video_drive_id}")
                         video_mime_type = file_metadata.get('mimeType', 'application/octet-stream')
+                        base_name_for_file = ""
+                        original_name_from_drive_without_ext, ext_from_drive = os.path.splitext(
+                            original_video_name_from_drive)
 
-                        # Determine the name to use for the downloaded video
                         if suggested_name and suggested_name.strip():
-                            # Remove invalid filename characters from the suggested name
-                            clean_suggested_name = re.sub(r'[\\/:*?"<>|]', '', suggested_name).strip()
-                            # Append original extension if possible
-                            name_without_ext, ext = os.path.splitext(original_video_name_from_drive)
-                            video_name_for_download = f"{clean_suggested_name}{ext}" if ext else clean_suggested_name
+                            base_name_for_file = re.sub(r'[\\/:*?"<>|]', '', suggested_name).strip()
                         else:
-                            video_name_for_download = original_video_name_from_drive # Fallback to Drive's name
-
-                        local_video_path = os.path.join(temp_download_dir, video_name_for_download)
-
-                        # Handle potential duplicate filenames in the local temp directory
+                            base_name_for_file = re.sub(r'[\\/:*?"<>|]', '',
+                                                        original_name_from_drive_without_ext).strip()
+                        final_video_name = f"{prefix_for_filename}{base_name_for_file}{ext_from_drive}"
+                        local_video_path = os.path.join(temp_download_dir, final_video_name)
                         counter = 1
                         original_local_video_path = local_video_path
                         while os.path.exists(local_video_path):
-                            name_part, ext_part = os.path.splitext(original_local_video_path)
-                            local_video_path = f"{name_part}_{counter}{ext_part}"
+                            name_part, ext_part_curr = os.path.splitext(original_local_video_path)
+                            local_video_path = f"{name_part}_{counter}{ext_part_curr}"
                             counter += 1
 
-                        self.stdout.write(f"Downloading Google Drive video '{video_name_for_download}' to {local_video_path}...")
+                        self.stdout.write(
+                            f"Downloading Google Drive video '{final_video_name}' to {local_video_path}...")
 
                         if drive_helper.download_file_from_drive(service, video_drive_id, local_video_path):
                             self.stdout.write(self.style.SUCCESS(f"Successfully downloaded: {local_video_path}"))
 
-                            # Basic check for empty or very small files (could indicate corrupted/error page)
                             if os.path.exists(local_video_path) and os.path.getsize(local_video_path) < 1024:
                                 self.stdout.write(self.style.WARNING(
                                     f"WARNING: Downloaded video '{local_video_path}' is very small ({os.path.getsize(local_video_path)} bytes). This might indicate an error or permission issue. Skipping upload."))
                                 continue
 
                             self.stdout.write(
-                                f"Uploading '{video_name_for_download}' back to Google Drive folder '{google_drive_folder_id}'...")
-                            uploaded_file_id = drive_helper.upload_file_to_drive(service, video_name_for_download, local_video_path,
+                                f"Uploading '{final_video_name}' back to Google Drive folder '{google_drive_folder_id}'...")
+                            uploaded_file_id = drive_helper.upload_file_to_drive(service, final_video_name,
+                                                                                 local_video_path,
                                                                                  video_mime_type,
                                                                                  google_drive_folder_id)
                             if uploaded_file_id:
                                 self.stdout.write(self.style.SUCCESS(
-                                    f"Successfully uploaded: {video_name_for_download} (New Drive ID: {uploaded_file_id})"))
+                                    f"Successfully uploaded: {final_video_name} (New Drive ID: {uploaded_file_id})"))
                             else:
-                                self.stdout.write(self.style.ERROR(f"Failed to upload '{video_name_for_download}' to Google Drive."))
+                                self.stdout.write(
+                                    self.style.ERROR(f"Failed to upload '{final_video_name}' to Google Drive."))
                         else:
                             self.stdout.write(self.style.ERROR(f"Failed to download Google Drive video: {link}"))
 

@@ -233,7 +233,6 @@ class DriveHelper:
                                                     'link': url
                                                 })
 
-                # Image hyperlinks
                 if hasattr(shape, 'image') and hasattr(shape.image, 'hyperlink') and shape.image.hyperlink.address:
                     url = shape.image.hyperlink.address
                     if url:
@@ -242,7 +241,6 @@ class DriveHelper:
                             'link': url
                         })
 
-            # Filter out duplicate links, prioritizing entries with an associated name
             unique_links_with_names = {}
             for item in found_links_with_names:
                 link = item['link']
@@ -257,3 +255,36 @@ class DriveHelper:
         except Exception as e:
             self._log(f"An error occurred while extracting links from PPTX file: {e}", style_func=self.style.ERROR)
             return []
+
+    def get_market_name_prefix(self, pptx_file_path: str) -> str:
+        if not os.path.exists(pptx_file_path):
+            self._log(f"Error: PPTX file not found locally at '{pptx_file_path}'", style_func=self.style.ERROR)
+            return ""
+
+        try:
+            prs = Presentation(pptx_file_path)
+            if not prs.slides:
+                self._log(f"No slides found in '{pptx_file_path}'.")
+                return ""
+
+            # Iterate through all slides to find "Market Name -"
+            for slide in prs.slides:
+                for shape in slide.shapes:
+                    if shape.has_text_frame:
+                        for paragraph in shape.text_frame.paragraphs:
+                            full_text = "".join([run.text for run in paragraph.runs])
+                            if "Market Name -" in full_text:
+                                market_name_value = full_text.split("Market Name -", 1)[1].strip()
+                                if '_' in market_name_value:
+                                    prefix = market_name_value.rsplit('_', 1)[1].strip()
+                                    self._log(f"Extracted market name prefix: '{prefix}'")
+                                    return prefix
+                                else:
+                                    self._log(f"No underscore found in market name: '{market_name_value}'. Using full value as prefix.", style_func=self.style.WARNING)
+                                    return market_name_value # Fallback to full value if no underscore
+            self._log("Market Name field not found in the presentation.", style_func=self.style.WARNING)
+            return ""
+
+        except Exception as e:
+            self._log(f"An error occurred while extracting market name prefix: {e}", style_func=self.style.ERROR)
+            return ""
