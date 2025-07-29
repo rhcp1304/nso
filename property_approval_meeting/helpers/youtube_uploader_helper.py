@@ -69,7 +69,7 @@ def upload_video(youtube_service, file_path, title, description="", tags=None, c
             'categoryId': category_id
         },
         'status': {
-            'privacyStatus': 'unlisted',  # 'public', 'private', 'unlisted'
+            'privacyStatus': 'unlisted',
             'selfDeclaredMadeForKids': False
         }
     }
@@ -89,8 +89,9 @@ def upload_video(youtube_service, file_path, title, description="", tags=None, c
             if status:
                 logger.info(f"Upload progress for '{title}': {int(status.progress() * 100)}%")
 
-        logger.info(f"Successfully uploaded video: '{title}' (Video ID: {response.get('id')})")
-        return response
+        video_id = response.get('id')
+        logger.info(f"Successfully uploaded video: '{title}' (Video ID: {video_id})")
+        return video_id
 
     except HttpError as e:
         logger.error(f"An HTTP error {e.resp.status} occurred during upload of '{title}': {e.content.decode()}")
@@ -98,4 +99,3 @@ def upload_video(youtube_service, file_path, title, description="", tags=None, c
     except Exception as e:
         logger.error(f"An unexpected error occurred during upload of '{title}': {e}")
         return None
-
