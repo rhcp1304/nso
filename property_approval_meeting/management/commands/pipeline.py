@@ -228,7 +228,7 @@ class Command(BaseCommand):
                             # Upload to YouTube
                             if youtube_service:
                                 self.stdout.write(f"Uploading '{final_video_name}' to YouTube...")
-                                video_title = market_name+ os.path.splitext(final_video_name)[0]
+                                video_title = market_name+" "+ os.path.splitext(final_video_name)[0]
                                 youtube_video_id = helper.upload_video_to_youtube(
                                     youtube_service,
                                     local_video_path,
