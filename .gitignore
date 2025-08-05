@@ -60,3 +60,4 @@ youtube_credentials.json # YouTube API credentials
 /property_approval_meeting/helpers/temp_drive_downloads
 /temp_drive_downloads/
 /youtube_upload_log.txt
+/temp_pipeline_downloads/
