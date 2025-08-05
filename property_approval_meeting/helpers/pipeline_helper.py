@@ -287,7 +287,6 @@ class IntegratedPipelineHelper:
                 market_name = re.sub(r'\s*\[Image \d+\]\s*', '', market_name).strip() # Clean up image placeholders
                 self._log(f"Extracted Market Name: '{market_name}'")
             else:
-                market_name = 'Kolkata'
                 self._log("Could not find 'Market Name - ' on the first slide.", style_func=self.style.WARNING)
 
             zone_match = re.search(r"ZONE\s*:\s*(.*?)(?=\s*STATE|\s*CITY|\s*PIN CODE|\n|$)", slide_text, re.IGNORECASE)
