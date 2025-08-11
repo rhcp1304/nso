@@ -281,7 +281,7 @@ class IntegratedPipelineHelper:
                             slide_text += run.text + " "
 
             # Refined regex to be more flexible and capture until end of line or specific keywords
-            market_match = re.search(r"Market\s*Name\s*-\s*(.*?)(?=\s*ZONE|\s*Address|\s*STORE SIZE|\n|$)", slide_text, re.IGNORECASE)
+            market_match = re.search(r"Market\s*Name\s*[-:]\s*(.*?)(?=\s*ZONE|\s*Address|\s*STORE SIZE|\n|$)", slide_text, re.IGNORECASE)
             if market_match:
                 market_name = market_match.group(1).strip()
                 market_name = re.sub(r'\s*\[Image \d+\]\s*', '', market_name).strip() # Clean up image placeholders

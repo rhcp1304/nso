@@ -98,33 +98,41 @@ def get_market_and_zone_name_from_ppt(ppt_path):
         for shape in first_slide.shapes:
             if hasattr(shape, "text_frame") and shape.text_frame:
                 for paragraph in shape.text_frame.paragraphs:
-                    for run in paragraph.runs:
-                        slide_text += run.text + " "
+                    slide_text += paragraph.text + "\n"
 
-        market_match = re.search(
-            r"Market\s*Name\s*-\s*(.*?)(?:\s*ZONE|\s*Address|\s*STORE SIZE|$)",
-            slide_text,
-            re.IGNORECASE
-        )
-        if market_match:
-            market_name = market_match.group(1).strip()
-
-            market_name = re.sub(r'\s*\[Image \d+\]\s*', '', market_name).strip()
-        else:
-            print("Could not find 'Market Name - ' on the first slide.")
-
+        # First, try to find the zone name.
         zone_match = re.search(
             r"ZONE\s*:\s*(.*?)(?:\s*STATE|\s*CITY|\s*PIN CODE|$)",
             slide_text,
-            re.IGNORECASE
+            re.IGNORECASE | re.DOTALL
         )
         if zone_match:
             zone_name = zone_match.group(1).strip()
             zone_name = re.sub(r'\s*\[Image \d+\]\s*', '', zone_name).strip()
         else:
             print("Could not find 'ZONE : ' on the first slide.")
+            return None, None
 
-        if market_name is None or zone_name is None:
+        # Now, construct the market name based on the updated logic.
+        if zone_name:
+            # The pattern is updated to match until a newline character (`\n`)
+            # instead of a space or a newline.
+            market_pattern = r"(?:^|\s)" + re.escape(zone_name) + r"\s+\d" + r"(?:.*?_){2,}.*?(?=\n|$)"
+
+            market_match = re.search(
+                market_pattern,
+                slide_text,
+                re.IGNORECASE | re.DOTALL
+            )
+            if market_match:
+                market_name = market_match.group(0).strip()
+                market_name = re.sub(r'\s*\[Image \d+\]\s*', '', market_name).strip()
+                print(f"DEBUG: Found new market name: {market_name}")
+            else:
+                print(
+                    f"Could not find a string starting with '{zone_name}' followed by a space and a digit, with at least two underscores, and ending at a newline.")
+
+        if market_name is None:
             print(f"DEBUG: Extracted slide text:\n---START---\n{slide_text}\n---END---")
 
         return market_name, zone_name
